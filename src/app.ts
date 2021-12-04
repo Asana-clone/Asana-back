@@ -1,19 +1,24 @@
 import * as express from 'express';
-import Routes from './routes/index';
+import Routers from './interfaces/router.interface';
+import indexRouter from './routers';
 
 class Server {
   public app: express.Application;
 
-  constructor() {
+  constructor(routers: Routers[]) {
     this.app = express();
-    this.router();
+    this.initializerouter(routers);
   }
-  private router(): void {
-    this.app.use('/', Routes);
+
+  private initializerouter(routers: Routers[]) {
+    routers.forEach((router) => {
+      this.app.use('/', router.router);
+    });
   }
+
   public getInstance(): express.Application {
     return this.app;
   }
 }
 
-export default new Server();
+export default new Server([new indexRouter()]);

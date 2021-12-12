@@ -24,6 +24,10 @@ export default class User extends Sequelize.Model {
           allowNull: false,
           unique: true,
         },
+        password: {
+          type: Sequelize.STRING,
+          allowNull: false,
+        },
         department: {
           type: Sequelize.STRING,
           allowNull: false,

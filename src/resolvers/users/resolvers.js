@@ -17,15 +17,17 @@ const userResolvers = {
   Mutation: {
     createUser: async (_, { input }) => {
       console.log(input);
-      const { name, role, department, email, about } = input;
+      const { name, role, department, email, about, password } = input;
       //db생성문을 넣어야 합니다.
       await db.User.create({
         name,
         role,
+        password,
         department,
         email,
         about,
       });
+
       return true;
     },
     deleteUser: async (_, { id }) => {

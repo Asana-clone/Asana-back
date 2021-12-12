@@ -4,13 +4,14 @@ const userResolvers = {
   Query: {
     getUser: async (_, { id }) => {
       console.log(id);
+      const user = await db.User.findOne({ where: { id } });
       return {
         id,
-        name: 'young',
-        role: 'master',
-        department: 'pokemon world',
-        email: 'cxz5309@gmail.com',
-        about: '전설의 포켓몬 마스터이다.',
+        name: user.datavalues.name,
+        role: user.datavalues.role,
+        department: user.datavalues.department,
+        email: user.datavalues.email,
+        about: user.datavalues.about,
       };
     },
   },
@@ -32,7 +33,13 @@ const userResolvers = {
     },
     deleteUser: async (_, { id }) => {
       console.log(id);
-      return true;
+      try {
+        await db.User.destroy({ where: { id } });
+        return true;
+      } catch (err) {
+        console.error(err);
+        return false;
+      }
     },
   },
 };

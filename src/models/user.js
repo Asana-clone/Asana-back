@@ -11,20 +11,23 @@ export default class User extends Sequelize.Model {
           unique: true,
           type: Sequelize.INTEGER,
         },
+        email: {
+          type: Sequelize.STRING,
+          allowNull: false,
+        },
         name: {
           type: Sequelize.STRING,
           allowNull: false,
         },
-        role: {
-          type: Sequelize.STRING,
-          allowNull: false,
-        },
-        email: {
-          type: Sequelize.STRING,
-          allowNull: false,
-          unique: true,
-        },
         password: {
+          type: Sequelize.STRING,
+          allowNull: false,
+        },
+        provider: {
+          type: Sequelize.STRING,
+          allowNull: false,
+        },
+        role: {
           type: Sequelize.STRING,
           allowNull: false,
         },

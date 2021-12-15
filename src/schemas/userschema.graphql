@@ -11,14 +11,15 @@ type User {
 
 type Query {
   getUser(id: Int!): User!
+  login(email: String!, password: String!): String!
 }
 
-type Mutation{
+type Mutation {
   createUser(input: createUserInput!): Boolean!
   deleteUser(id: Int!): Boolean!
 }
 
-input createUserInput{
+input createUserInput {
   name: String
   role: String
   password: String

@@ -1,3 +1,4 @@
+import jwt from 'jsonwebtoken'
 import db from '../../models/index.js';
 import bcrypt from 'bcrypt';
 import User from '../../models/user.js';
@@ -19,23 +20,42 @@ const userResolvers = {
         updatedAt: user.dataValues.updatedAt,
       };
     },
+    login: async (_, { email, password }) => {
+      const provider = 'local';
+      const hashedPw = await bcrypt.hash(password, salt);
+      const userExist = await User.findOne({ where: { email, provider } });
+      const pwCompared = await bcrypt.compare(hashedPw, password);
+      if (!userExist) { return false; }
+      if (!pwCompared) { return false; }
+      // refresh token 발급 (2주)
+      const refreshToken = jwt.sign(provider + email, env.JWT_SECRET_KEY, {
+        expiresIn: '14d',
+      });
+      // access token 발급 (1시간)
+      const accessToken = jwt.sign(provider + email, env.JWT_SECRET_KEY, {
+        expiresIn: '1h',
+      });
+      return accessToken;
+    }
   },
   Mutation: {
     createUser: async (_, { input }) => {
       console.log(input);
+      const provider = 'local';
       const { name, role, department, email, about, password } = input;
       //db생성문을 넣어야 합니다.
       const hashedPw = await bcrypt.hash(password, salt);
-      const userExist = await User.findOne({ where: email });
+      const userExist = await User.findOne({ where: { email, provider } });
       if (userExist) {
         return false;
       }
       await db.User.create({
         name,
+        email,
         role,
         password: hashedPw,
+        provider,
         department,
-        email,
         about,
       });
       return true;

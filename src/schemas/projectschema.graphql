@@ -3,6 +3,8 @@ type Project {
   title: String
   desc: String
   inviteCode: String
+  createdAt: String
+  updatedAt: String
 }
 
 type Query {

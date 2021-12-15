@@ -5,6 +5,8 @@ type User {
   department: String
   email: String
   about: String
+  createdAt: String
+  updatedAt: String
 }
 
 type Query {

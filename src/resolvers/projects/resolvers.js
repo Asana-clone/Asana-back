@@ -11,6 +11,8 @@ const projectResolvers = {
         title: project.dataValues.title,
         desc: project.dataValues.desc,
         inviteCode: project.dataValues.inviteCode,
+        createdAt: project.dataValues.createdAt,
+        updatedAt: project.dataValues.updatedAt,
       };
     },
   },

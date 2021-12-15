@@ -1,0 +1,20 @@
+type Project {
+  id: Int!
+  title: String
+  desc: String
+  inviteCode: String
+}
+
+type Query {
+  getProject(id: Int!): Project!
+}
+
+type Mutation{
+  createProject(input: createProjectInput!): Boolean!
+  deleteProject(id: Int!): Boolean!
+}
+
+input createProjectInput{
+  title: String
+  desc: String
+}

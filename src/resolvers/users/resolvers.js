@@ -7,11 +7,11 @@ const userResolvers = {
       const user = await db.User.findOne({ where: { id } });
       return {
         id,
-        name: user.datavalues.name,
-        role: user.datavalues.role,
-        department: user.datavalues.department,
-        email: user.datavalues.email,
-        about: user.datavalues.about,
+        name: user.dataValues.name,
+        role: user.dataValues.role,
+        department: user.dataValues.department,
+        email: user.dataValues.email,
+        about: user.dataValues.about,
       };
     },
   },

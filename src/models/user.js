@@ -74,5 +74,11 @@ export default class User extends Sequelize.Model {
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
     });
+    db.User.hasMany(db.Collaborator, {
+      foreignKey: 'collaborator',
+      sourceKey: 'id',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    });
   }
 }

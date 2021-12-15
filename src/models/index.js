@@ -9,6 +9,8 @@ import Task from './task.js';
 import Section from './section.js';
 import SubTask from './subtask.js';
 import Tag from './tag.js';
+import Goal from './goal.js';
+import Collaborator from './collaborator.js';
 
 const env = 'development';
 const db = {};
@@ -30,6 +32,8 @@ db.Section = Section;
 db.SubTask = SubTask;
 db.Tag = Tag;
 db.Task = Task;
+db.Goal = Goal;
+db.Collaborator = Collaborator;
 
 User.init(sequelize);
 Belong.init(sequelize);
@@ -40,6 +44,8 @@ Section.init(sequelize);
 SubTask.init(sequelize);
 Tag.init(sequelize);
 Task.init(sequelize);
+Goal.init(sequelize);
+Collaborator.init(sequelize);
 
 User.associate(db);
 Belong.associate(db);
@@ -50,5 +56,7 @@ Section.associate(db);
 SubTask.associate(db);
 Tag.associate(db);
 Task.associate(db);
+Goal.associate(db);
+Collaborator.associate(db);
 
 export default db;

@@ -1,5 +1,6 @@
 import db from '../../models/index.js';
 import bcrypt from 'bcrypt';
+import User from '../../models/user.js';
 const salt = Number(process.env.SALT);
 
 const userResolvers = {
@@ -25,7 +26,10 @@ const userResolvers = {
       const { name, role, department, email, about, password } = input;
       //db생성문을 넣어야 합니다.
       const hashedPw = await bcrypt.hash(password, salt);
-      console.log(hashedPw);
+      const userExist = await User.findOne({ where: email });
+      if (userExist) {
+        return false;
+      }
       await db.User.create({
         name,
         role,

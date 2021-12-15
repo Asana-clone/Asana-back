@@ -1,6 +1,6 @@
 import Sequelize from 'sequelize';
 
-export default class User extends Sequelize.Model {
+export default class Task extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
       {
@@ -11,28 +11,35 @@ export default class User extends Sequelize.Model {
           unique: true,
           type: Sequelize.INTEGER,
         },
-        name: {
+        title: {
           type: Sequelize.STRING,
           allowNull: false,
         },
-        role: {
+        desc: {
           type: Sequelize.STRING,
-          allowNull: false,
+          allowNull: true,
         },
-        email: {
+        start: {
+          type: Sequelize.INTEGER,
+          allowNull: true,
+        },
+        end: {
+          type: Sequelize.INTEGER,
+          allowNull: true,
+        },
+        status: {
           type: Sequelize.STRING,
-          allowNull: false,
-          unique: true,
+          allowNull: true,
         },
-        password: {
+        type: {
           type: Sequelize.STRING,
-          allowNull: false,
+          allowNull: true,
         },
-        department: {
+        process: {
           type: Sequelize.STRING,
-          allowNull: false,
+          allowNull: true,
         },
-        about: {
+        priority: {
           type: Sequelize.STRING,
           allowNull: true,
         },
@@ -41,8 +48,8 @@ export default class User extends Sequelize.Model {
         sequelize,
         timestamps: true,
         underscored: false,
-        modelName: 'User',
-        tableName: 'users',
+        modelName: 'Task',
+        tableName: 'tasks',
         paranoid: false,
         charset: 'utf8',
         collate: 'utf8_general_ci',
@@ -50,27 +57,33 @@ export default class User extends Sequelize.Model {
     );
   }
   static associate(db) {
-    db.User.hasMany(db.ProjectMember, {
-      foreignKey: 'user',
+    db.Task.hasMany(db.Comment, {
+      foreignKey: 'task',
       sourceKey: 'id',
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
     });
-    db.User.hasMany(db.Comment, {
-      foreignKey: 'user',
+    db.Task.hasMany(db.Tag, {
+      foreignKey: 'task',
       sourceKey: 'id',
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
     });
-    db.User.hasMany(db.Task, {
-      foreignKey: 'assignee',
+    db.Task.hasMany(db.Belong, {
+      foreignKey: 'task',
       sourceKey: 'id',
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
     });
-    db.User.hasMany(db.SubTask, {
-      foreignKey: 'assignee',
+    db.Task.hasMany(db.SubTask, {
+      foreignKey: 'task',
       sourceKey: 'id',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    });
+    db.Task.belongsTo(db.Section, {
+      foreignKey: 'section',
+      targetKey: 'id',
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
     });

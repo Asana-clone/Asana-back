@@ -1,6 +1,6 @@
 import Sequelize from 'sequelize';
 
-export default class Project extends Sequelize.Model {
+export default class Section extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
       {
@@ -15,21 +15,13 @@ export default class Project extends Sequelize.Model {
           type: Sequelize.STRING,
           allowNull: false,
         },
-        desc: {
-          type: Sequelize.STRING,
-          allowNull: false,
-        },
-        inviteCode: {
-          type: Sequelize.STRING,
-          allowNull: false,
-        },
       },
       {
         sequelize,
         timestamps: true,
         underscored: false,
-        modelName: 'Project',
-        tableName: 'projects',
+        modelName: 'Section',
+        tableName: 'sections',
         paranoid: false,
         charset: 'utf8',
         collate: 'utf8_general_ci',
@@ -37,21 +29,15 @@ export default class Project extends Sequelize.Model {
     );
   }
   static associate(db) {
-    db.Project.hasMany(db.ProjectMember, {
-      foreignKey: 'project',
+    db.Section.hasMany(db.Task, {
+      foreignKey: 'section',
       sourceKey: 'id',
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
     });
-    db.Project.hasMany(db.Section, {
+    db.Section.belongsTo(db.Project, {
       foreignKey: 'project',
-      sourceKey: 'id',
-      onDelete: 'CASCADE',
-      onUpdate: 'CASCADE',
-    });
-    db.Project.hasMany(db.Belong, {
-      foreignKey: 'project',
-      sourceKey: 'id',
+      targetKey: 'id',
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
     });

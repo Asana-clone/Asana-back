@@ -1,6 +1,6 @@
 import Sequelize from 'sequelize';
 
-export default class Project extends Sequelize.Model {
+export default class ProjectMember extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
       {
@@ -11,15 +11,7 @@ export default class Project extends Sequelize.Model {
           unique: true,
           type: Sequelize.INTEGER,
         },
-        title: {
-          type: Sequelize.STRING,
-          allowNull: false,
-        },
-        desc: {
-          type: Sequelize.STRING,
-          allowNull: false,
-        },
-        inviteCode: {
+        authority: {
           type: Sequelize.STRING,
           allowNull: false,
         },
@@ -28,8 +20,8 @@ export default class Project extends Sequelize.Model {
         sequelize,
         timestamps: true,
         underscored: false,
-        modelName: 'Project',
-        tableName: 'projects',
+        modelName: 'ProjectMember',
+        tableName: 'projectmembers',
         paranoid: false,
         charset: 'utf8',
         collate: 'utf8_general_ci',
@@ -37,21 +29,15 @@ export default class Project extends Sequelize.Model {
     );
   }
   static associate(db) {
-    db.Project.hasMany(db.ProjectMember, {
+    db.ProjectMember.belongsTo(db.Project, {
       foreignKey: 'project',
-      sourceKey: 'id',
+      targetKey: 'id',
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
     });
-    db.Project.hasMany(db.Section, {
-      foreignKey: 'project',
-      sourceKey: 'id',
-      onDelete: 'CASCADE',
-      onUpdate: 'CASCADE',
-    });
-    db.Project.hasMany(db.Belong, {
-      foreignKey: 'project',
-      sourceKey: 'id',
+    db.ProjectMember.belongsTo(db.User, {
+      foreignKey: 'user',
+      targetKey: 'id',
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
     });

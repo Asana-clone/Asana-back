@@ -25,13 +25,13 @@ export default class Collaborator extends Sequelize.Model {
     );
   }
   static associate(db) {
-    db.Collaborator.belongsTo(db.Project, {
-      foreignKey: 'project',
+    db.Collaborator.belongsTo(db.Goal, {
+      foreignKey: 'goal',
       targetKey: 'id',
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
     });
-    db.Collaborator.belongsTo(db.Collaborator, {
+    db.Collaborator.belongsTo(db.User, {
       foreignKey: 'collaborator',
       targetKey: 'id',
       onDelete: 'CASCADE',

@@ -9,9 +9,15 @@ type User {
   updatedAt: String
 }
 
+type LoginResult {
+  ok: Boolean!
+  token: String
+  error: String
+}
+
 type Query {
-  getUser(id: Int!): User!
-  login(email: String!, password: String!): String!
+  login(email: String!, password: String!): LoginResult!
+  me: User
 }
 
 type Mutation {

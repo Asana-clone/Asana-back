@@ -1,9 +1,19 @@
 import { ApolloServer } from 'apollo-server-express';
 import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
 import { sequelize } from './models/index.js';
+import { getUser } from './services/users/utils.js'
 import express from 'express';
 import http from 'http';
 import morgan from 'morgan';
+
+const formatError = (err) => {
+  console.error("--- GraphQL Error ---");
+  console.error("Path:", err.path);
+  console.error("Message:", err.message);
+  console.error("Code:", err.extensions.code);
+  console.error("Original Error", err.originalError);
+  return err;
+};
 
 async function startApolloServer(typeDefs, resolvers) {
   const app = express();
@@ -13,6 +23,12 @@ async function startApolloServer(typeDefs, resolvers) {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
+    formatError,
+    context: async (ctx) => {
+      if (ctx.req) {
+        return { loggedInUser: await getUser(ctx.req.headers.token) };
+      }
+    },
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   });
 

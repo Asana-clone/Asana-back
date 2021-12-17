@@ -5,6 +5,8 @@
   "main": "index.js",
   "type": "module",
   "dependencies": {
+    "@graphql-tools/load-files": "^6.5.3",
+    "@graphql-tools/merge": "^8.2.1",
     "apollo-server-core": "^3.5.0",
     "apollo-server-express": "^3.5.0",
     "bcrypt": "^5.0.1",

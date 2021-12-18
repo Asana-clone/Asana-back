@@ -12,6 +12,12 @@ type User {
 type LoginResult {
   ok: Boolean!
   token: String
+  err: String
+}
+
+type UserResult {
+  ok: Boolean!
+  user: User
   error: String
 }
 
@@ -21,8 +27,8 @@ type Query {
 }
 
 type Mutation {
-  createUser(input: createUserInput!): Boolean!
-  deleteUser(id: Int!): Boolean!
+  createUser(input: createUserInput!): UserResult!
+  deleteUser(id: Int!): Result!
 }
 
 input createUserInput {

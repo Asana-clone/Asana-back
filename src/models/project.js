@@ -15,6 +15,18 @@ export default class Project extends Sequelize.Model {
           type: Sequelize.STRING,
           allowNull: false,
         },
+        subject: {
+          type: Sequelize.STRING,
+          allowNull: false,
+        },
+        start: {
+          type: Sequelize.STRING,
+          allowNull: true,
+        },
+        end: {
+          type: Sequelize.STRING,
+          allowNull: true,
+        },
         desc: {
           type: Sequelize.STRING,
           allowNull: false,

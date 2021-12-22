@@ -1,6 +1,6 @@
 import Sequelize from 'sequelize';
 
-export default class Tag extends Sequelize.Model {
+export default class Like extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
       {
@@ -11,17 +11,13 @@ export default class Tag extends Sequelize.Model {
           unique: true,
           type: Sequelize.INTEGER,
         },
-        name: {
-          type: Sequelize.STRING,
-          allowNull: false,
-        },
       },
       {
         sequelize,
         timestamps: true,
         underscored: false,
-        modelName: 'Tag',
-        tableName: 'tags',
+        modelName: 'Like',
+        tableName: 'likes',
         paranoid: false,
         charset: 'utf8',
         collate: 'utf8_general_ci',
@@ -29,8 +25,20 @@ export default class Tag extends Sequelize.Model {
     );
   }
   static associate(db) {
-    db.Tag.hasMany(db.TagRelation, {
-      foreignKey: 'tag',
+    db.Like.belongsTo(db.User, {
+      foreignKey: 'user',
+      targetKey: 'id',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    });
+    db.Like.belongsTo(db.Task, {
+      foreignKey: 'task',
+      targetKey: 'id',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    });
+    db.Like.belongsTo(db.SubTask, {
+      foreignKey: 'subTask',
       targetKey: 'id',
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',

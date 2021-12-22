@@ -15,6 +15,10 @@ export default class ProjectMember extends Sequelize.Model {
           type: Sequelize.STRING,
           allowNull: false,
         },
+        projectRole: {
+          type: Sequelize.STRING,
+          allowNull: true,
+        },
       },
       {
         sequelize,

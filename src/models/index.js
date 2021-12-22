@@ -11,6 +11,8 @@ import SubTask from './subtask.js';
 import Tag from './tag.js';
 import Goal from './goal.js';
 import Collaborator from './collaborator.js';
+import TagRelation from './tagRelation.js';
+import Like from './like.js';
 
 const env = 'development';
 const db = {};
@@ -34,6 +36,8 @@ db.Tag = Tag;
 db.Task = Task;
 db.Goal = Goal;
 db.Collaborator = Collaborator;
+db.TagRelation = TagRelation;
+db.Like = Like;
 
 User.init(sequelize);
 Belong.init(sequelize);
@@ -46,6 +50,7 @@ Tag.init(sequelize);
 Task.init(sequelize);
 Goal.init(sequelize);
 Collaborator.init(sequelize);
+TagRelation.init(sequelize);
 
 User.associate(db);
 Belong.associate(db);
@@ -58,5 +63,6 @@ Tag.associate(db);
 Task.associate(db);
 Goal.associate(db);
 Collaborator.associate(db);
+Like.associate(db);
 
 export default db;

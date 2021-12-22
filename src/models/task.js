@@ -19,21 +19,23 @@ export default class Task extends Sequelize.Model {
           type: Sequelize.STRING,
           allowNull: true,
         },
-        start: {
+        startDate: {
           type: Sequelize.INTEGER,
           allowNull: true,
         },
-        end: {
+        dueDate: {
           type: Sequelize.INTEGER,
           allowNull: true,
         },
         status: {
           type: Sequelize.STRING,
           allowNull: true,
+          defaultValue: 'uncomplete',
         },
         type: {
           type: Sequelize.STRING,
           allowNull: true,
+          defaultValue: 'default',
         },
         process: {
           type: Sequelize.STRING,
@@ -42,6 +44,11 @@ export default class Task extends Sequelize.Model {
         priority: {
           type: Sequelize.STRING,
           allowNull: true,
+        },
+        likeNum: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
+          defaultValue: 0,
         },
       },
       {
@@ -76,6 +83,12 @@ export default class Task extends Sequelize.Model {
       onUpdate: 'CASCADE',
     });
     db.Task.hasMany(db.SubTask, {
+      foreignKey: 'Task',
+      sourceKey: 'id',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    });
+    db.Task.hasMany(db.Like, {
       foreignKey: 'task',
       sourceKey: 'id',
       onDelete: 'CASCADE',

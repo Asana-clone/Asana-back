@@ -19,11 +19,11 @@ export default class SubTask extends Sequelize.Model {
           type: Sequelize.STRING,
           allowNull: true,
         },
-        start: {
+        startDate: {
           type: Sequelize.INTEGER,
           allowNull: true,
         },
-        end: {
+        dueDate: {
           type: Sequelize.INTEGER,
           allowNull: true,
         },
@@ -34,6 +34,7 @@ export default class SubTask extends Sequelize.Model {
         type: {
           type: Sequelize.STRING,
           allowNull: true,
+          defaultValue: 'default',
         },
         process: {
           type: Sequelize.STRING,
@@ -42,6 +43,11 @@ export default class SubTask extends Sequelize.Model {
         priority: {
           type: Sequelize.STRING,
           allowNull: true,
+        },
+        likeNum: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
+          defaultValue: 0,
         },
       },
       {
@@ -64,6 +70,12 @@ export default class SubTask extends Sequelize.Model {
       onUpdate: 'CASCADE',
     });
     db.SubTask.hasMany(db.Tag, {
+      foreignKey: 'task',
+      sourceKey: 'id',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    });
+    db.SubTask.hasMany(db.Like, {
       foreignKey: 'task',
       sourceKey: 'id',
       onDelete: 'CASCADE',

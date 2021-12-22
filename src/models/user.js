@@ -23,17 +23,13 @@ export default class User extends Sequelize.Model {
           type: Sequelize.STRING,
           allowNull: false,
         },
-        provider: {
-          type: Sequelize.STRING,
-          allowNull: false,
-        },
         role: {
           type: Sequelize.STRING,
-          allowNull: false,
+          allowNull: true,
         },
         department: {
           type: Sequelize.STRING,
-          allowNull: false,
+          allowNull: true,
         },
         about: {
           type: Sequelize.STRING,
@@ -79,6 +75,12 @@ export default class User extends Sequelize.Model {
     });
     db.User.hasMany(db.Collaborator, {
       foreignKey: 'collaborator',
+      sourceKey: 'id',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    });
+    db.User.hasMany(db.Like, {
+      foreignKey: 'like',
       sourceKey: 'id',
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',

@@ -1,48 +1,37 @@
 {
-  "name": "airbnb-back",
+  "name": "mytutorial2",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsc-watch --onSuccess \"ts-node dist/server.js\""
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/airbnb-migration/airbnb-back.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/airbnb-migration/airbnb-back/issues"
-  },
-  "homepage": "https://github.com/airbnb-migration/airbnb-back#readme",
+  "type": "module",
   "dependencies": {
-    "compression": "^1.7.4",
+    "@graphql-tools/load-files": "^6.5.3",
+    "@graphql-tools/merge": "^8.2.1",
+    "apollo-server-core": "^3.5.0",
+    "apollo-server-express": "^3.5.0",
+    "bcrypt": "^5.0.1",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "helmet": "^4.6.0",
+    "graphql": "^16.0.1",
+    "graphql-import": "^1.0.2",
     "jsonwebtoken": "^8.5.1",
-    "morgan": "^1.10.0",
     "mysql2": "^2.3.3",
-    "reflect-metadata": "^0.1.13",
-    "typeorm": "^0.2.41"
+    "nodemon": "^2.0.15",
+    "sequelize": "^6.12.0-beta.2",
+    "sequelize-cli": "^6.3.0"
   },
   "devDependencies": {
-    "@types/express": "^4.17.13",
-    "@types/jsonwebtoken": "^8.5.6",
-    "@types/morgan": "^1.9.3",
-    "@types/node": "^16.11.9",
-    "@typescript-eslint/eslint-plugin": "^5.4.0",
-    "@typescript-eslint/parser": "^5.4.0",
-    "eslint": "^8.3.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-import": "^2.25.3",
-    "eslint-plugin-prettier": "^4.0.0",
-    "prettier": "^2.4.1",
-    "ts-node": "^10.4.0",
-    "tsc-watch": "^4.5.0",
-    "typescript": "^4.5.2"
-  }
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-3": "^6.24.1",
+    "morgan": "^1.10.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/app.js",
+    "start": "nodemon --exec babel-node src/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

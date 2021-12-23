@@ -1,0 +1,41 @@
+type User {
+  id: Int!
+  name: String
+  role: String
+  department: String
+  email: String
+  about: String
+  createdAt: String
+  updatedAt: String
+}
+
+type LoginResult {
+  ok: Boolean!
+  token: String
+  err: String
+}
+
+type UserResult {
+  ok: Boolean!
+  user: User
+  error: String
+}
+
+type Query {
+  login(email: String!, password: String!): LoginResult!
+  me: User
+}
+
+type Mutation {
+  createUser(input: createUserInput!): UserResult!
+  deleteUser(id: Int!): Result!
+}
+
+input createUserInput {
+  name: String
+  role: String
+  password: String
+  department: String
+  email: String!
+  about: String
+}

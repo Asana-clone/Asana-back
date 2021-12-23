@@ -1,0 +1,4 @@
+type Result {
+  ok: Boolean!
+  err: String
+}

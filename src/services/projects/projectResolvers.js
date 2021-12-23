@@ -1,4 +1,5 @@
 import db from '../../models/index.js';
+import customError from '../util.js';
 
 const projectResolvers = {
   Query: {
@@ -6,6 +7,7 @@ const projectResolvers = {
       console.log(id);
       const project = await db.Project.findOne({ where: { id } });
       console.log(project);
+      throw new customError(400, 'myerror');
       return project;
     },
     getProjects: async () => {

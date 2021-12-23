@@ -1,11 +1,12 @@
-import env from '../env.js';
+import dotenv from 'dotenv'
+dotenv.config();
 
 const config = {
   development: {
-    username: env.DB_USER,
-    password: env.DB_PW,
-    database: env.DB_NAME,
-    host: env.END_POINT,
+    username: process.env.DEV_DB_USER,
+    password: process.env.DEV_DB_PW,
+    database: process.env.DB_NAME,
+    host: process.env.DEV_END_POINT,
     dialect: 'mysql',
   },
   test: {
@@ -16,10 +17,10 @@ const config = {
     dialect: 'mysql',
   },
   production: {
-    username: env.DB_USER,
-    password: env.DB_PW,
-    database: env.DB_NAME,
-    host: env.END_POINT,
+    username: process.env.PRODUCT_DB_USER,
+    password: process.env.PRODUCT_DB_PW,
+    database: process.env.DB_NAME,
+    host: process.env.PRODUCT_END_POINT,
     dialect: 'mysql',
   },
 };

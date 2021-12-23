@@ -1,6 +1,5 @@
-import jwt from 'jsonwebtoken'
+import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import crypto from 'crypto';
 import db from '../../models/index.js';
 
 const salt = Number(process.env.SALT);
@@ -17,7 +16,7 @@ const userResolvers = {
         if (!userExist || !pwCompared) {
           return {
             ok: false,
-            error: "이메일 또는 비밀번호가 잘못되었습니다"
+            error: '이메일 또는 비밀번호가 잘못되었습니다',
           };
         }
         const hashedEmail = provider + ' ' + email;
@@ -32,19 +31,19 @@ const userResolvers = {
         });
         return {
           ok: true,
-          token: accessToken
+          token: accessToken,
         };
       } catch (err) {
         return {
           ok: false,
-          err
+          err,
         };
       }
     },
     me: async (_, __, { loggedInUser }) => {
       const user = db.User.findOne({ email: loggedInUser.email, provider: loggedInUser.provider });
       return user;
-    }
+    },
   },
   Mutation: {
     createUser: async (_, { input }) => {

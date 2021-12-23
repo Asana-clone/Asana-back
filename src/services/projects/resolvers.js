@@ -25,16 +25,16 @@ const projectResolvers = {
           title,
           desc,
           inviteCode,
-        })
+        });
 
         return {
           ok: true,
-          project
+          project,
         };
       } catch (err) {
         return {
           ok: false,
-          err
+          err,
         };
       }
     },
@@ -42,16 +42,16 @@ const projectResolvers = {
       try {
         console.log(input);
         const { id, title, desc } = input;
-        const project = await db.Project.update({ title, desc }, { id })
+        const project = await db.Project.update({ title, desc }, { id });
 
         return {
           ok: true,
-          project
+          project,
         };
       } catch (err) {
         return {
           ok: false,
-          err
+          err,
         };
       }
     },
@@ -66,7 +66,7 @@ const projectResolvers = {
         console.error(err);
         return {
           ok: false,
-          err
+          err,
         };
       }
     },

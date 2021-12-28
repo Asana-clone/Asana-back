@@ -4,7 +4,6 @@ import customError from '../util.js';
 const projectResolvers = {
   Query: {
     getProject: async (_, { id }) => {
-      console.log(id);
       const project = await db.Project.findOne({ where: { id } });
       console.log(project);
       throw new customError(400, 'myerror');

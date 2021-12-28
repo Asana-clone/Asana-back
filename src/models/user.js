@@ -80,7 +80,7 @@ export default class User extends Sequelize.Model {
       onUpdate: 'CASCADE',
     });
     db.User.hasMany(db.Like, {
-      foreignKey: 'like',
+      foreignKey: 'user',
       sourceKey: 'id',
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',

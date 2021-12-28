@@ -22,13 +22,21 @@ const userResolvers = {
         const hashedEmail = provider + ' ' + email;
 
         // refresh token 발급 (2주)
-        const refreshToken = jwt.sign({ hashedEmail }, process.env.JWT_SECRET_KEY, {
-          expiresIn: '14d',
-        });
+        const refreshToken = jwt.sign(
+          { hashedEmail },
+          process.env.JWT_SECRET_KEY,
+          {
+            expiresIn: '14d',
+          }
+        );
         // access token 발급 (1시간)
-        const accessToken = jwt.sign({ hashedEmail }, process.env.JWT_SECRET_KEY, {
-          expiresIn: '1h',
-        });
+        const accessToken = jwt.sign(
+          { hashedEmail },
+          process.env.JWT_SECRET_KEY,
+          {
+            expiresIn: '1h',
+          }
+        );
         return {
           ok: true,
           token: accessToken,
@@ -41,40 +49,42 @@ const userResolvers = {
       }
     },
     me: async (_, __, { loggedInUser }) => {
-      const user = db.User.findOne({ email: loggedInUser.email, provider: loggedInUser.provider });
+      const user = db.User.findOne({
+        email: loggedInUser.email,
+        provider: loggedInUser.provider,
+      });
       return user;
     },
   },
   Mutation: {
     createUser: async (_, { input }) => {
-      console.log(input);
-      const provider = 'local';
-      const { name, role, department, email, about, password } = input;
-      //db생성문을 넣어야 합니다.
-      const hashedPw = await bcrypt.hash(password, salt);
-      const userExist = await db.User.findOne({ where: { email, provider } });
-      if (userExist) {
-        return false;
-      }
-      const user = await db.User.create({
-        name,
-        email,
-        role,
-        password: hashedPw,
-        provider,
-        department,
-        about,
-      });
-      return true;
-    },
-    deleteUser: async (_, { id }) => {
-      console.log(id);
       try {
-        await db.User.destroy({ where: { id } });
-        return true;
+        const provider = 'local';
+        const { name, role, department, email, about, password } = input;
+        //db생성문을 넣어야 합니다.
+        const hashedPw = await bcrypt.hash(password, salt);
+        const userExist = await db.User.findOne({ where: { email, provider } });
+        if (userExist) {
+          return false;
+        }
+        await db.User.create({
+          name,
+          email,
+          role,
+          password: hashedPw,
+          provider,
+          department,
+          about,
+        });
+        return {
+          statuscode: 200,
+        };
       } catch (err) {
         console.error(err);
-        return false;
+        return {
+          sttuscode: 400,
+          err,
+        };
       }
     },
   },

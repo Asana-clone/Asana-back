@@ -51,6 +51,7 @@ Task.init(sequelize);
 Goal.init(sequelize);
 Collaborator.init(sequelize);
 TagRelation.init(sequelize);
+Like.init(sequelize);
 
 User.associate(db);
 Belong.associate(db);
@@ -64,5 +65,6 @@ Task.associate(db);
 Goal.associate(db);
 Collaborator.associate(db);
 Like.associate(db);
+TagRelation.associate(db);
 
 export default db;

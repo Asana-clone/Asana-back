@@ -1,7 +1,7 @@
 import { ApolloServer } from 'apollo-server-express';
 import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
 import { sequelize } from './models/index.js';
-import { getUser } from './services/users/utils.js'
+import { getUser } from './services/users/utils.js';
 import express from 'express';
 import http from 'http';
 import morgan from 'morgan';

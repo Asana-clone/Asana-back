@@ -1,0 +1,31 @@
+type User {
+  id: Int!
+  name: String
+  role: String
+  department: String
+  email: String
+  about: String
+  createdAt: String
+  updatedAt: String
+}
+
+type LoginResult {
+  ok: Boolean!
+  token: String
+  err: String
+}
+
+type SectionResult {
+  statuscode:200
+}
+
+type Mutation {
+  createSection(input: SectionInput!): SectionResult!
+  updateSection(input: SectionInput!): SectionResult!
+  deleteSection(id:Int!): SectionResult!
+}
+
+input SectionInput {
+  id: Int!
+  title: String!
+}

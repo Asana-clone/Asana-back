@@ -23,7 +23,7 @@ const sectionResolvers = {
     updateSection: async (_, { input }) => {
       try {
         const { id, title } = input;
-        const section = await db.Section.update({ title }, {where: {id} });
+        await db.Section.update({ title }, {where: {id} });
 
         return {
           statuscode:200

@@ -7,30 +7,54 @@ type Task {
   about: String
   createdAt: String
   updatedAt: String
+  comments:[Comment]
+  tags:[Tag]
+  subTasks:[SubTask]
 }
 
-type LoginResult {
-  ok: Boolean!
-  token: String
+type SubTask{
+  id: Int
+  title: String
+  asignee: String
+  startDate: String
+  dueDate: String
+}
+
+type Comment{
+  id: Int!
+  comment: String
+  name: String
+  createAt: String
+}
+
+type Tag{
+  id: Int!
+  name: String
+  color: String
+}
+
+type getTaskResult{
+  statuscode: Int!
+  task: Task
   err: String
 }
 
-type TaskResult {
-  statuscode:Int
-  err: String
+
+type Query{
+  getTaskDetail(id:Int!): getTaskResult!
 }
 
 type Mutation {
-  createSection(input: TaskInput!): TaskResult!
-  updateSection(input: SectionInput!): TaskResult!
-  deleteSection(id:Int!): TaskResult!
+  createTask(input: TaskInput!): getTaskResult
+  updateTask(input: TaskInput!): getTaskResult!
+  deleteTask(id:Int!): getTaskResult!
 }
 
-input TaksInput {
+input TaskInput {
   id: Int!
   title: String!
   desc: String
-  asignee: Int
+  asignee: Int!
   startDate: String
   dueDate: String
   status: String

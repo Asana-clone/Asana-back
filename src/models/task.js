@@ -83,7 +83,7 @@ export default class Task extends Sequelize.Model {
       onUpdate: 'CASCADE',
     });
     db.Task.hasMany(db.SubTask, {
-      foreignKey: 'Task',
+      foreignKey: 'task',
       sourceKey: 'id',
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',

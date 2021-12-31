@@ -65,7 +65,7 @@ const userResolvers = {
         const hashedPw = await bcrypt.hash(password, salt);
         const userExist = await db.User.findOne({ where: { email, provider } });
         if (userExist) {
-          return false;
+          return {statuscode:400, err:'아이디 중복'};
         }
         await db.User.create({
           name,
@@ -82,7 +82,7 @@ const userResolvers = {
       } catch (err) {
         console.error(err);
         return {
-          sttuscode: 400,
+          statuscode: 400,
           err,
         };
       }

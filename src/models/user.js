@@ -35,6 +35,10 @@ export default class User extends Sequelize.Model {
           type: Sequelize.STRING,
           allowNull: true,
         },
+        provider:{
+          type: Sequelize.STRING,
+          allowNull:false
+        }
       },
       {
         sequelize,

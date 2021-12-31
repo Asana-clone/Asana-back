@@ -1,13 +1,10 @@
 import db from '../../models/index.js';
-import customError from '../util.js';
 
 const projectResolvers = {
   Query: {
     getProject: async (_, { id }) => {
-      console.log(id);
       const project = await db.Project.findOne({ where: { id } });
       console.log(project);
-      throw new customError(400, 'myerror');
       return project;
     },
     getProjects: async () => {
@@ -23,17 +20,19 @@ const projectResolvers = {
         const { title, desc } = input;
         //inviteCode 생성 어떻게..?
         const inviteCode = 1;
+        console.log(1)
         const project = await db.Project.create({
           title,
           desc,
           inviteCode,
         });
-
+        console.log(2)
         return {
           ok: true,
           project,
         };
       } catch (err) {
+        console.error(err)
         return {
           ok: false,
           err,

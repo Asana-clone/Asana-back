@@ -16,9 +16,9 @@ type LoginResult {
 }
 
 type UserResult {
-  ok: Boolean!
+  statuscode: Int!
   user: User
-  error: String
+  err: String
 }
 
 type Query {
@@ -28,13 +28,12 @@ type Query {
 
 type Mutation {
   createUser(input: createUserInput!): UserResult!
-  deleteUser(id: Int!): Result!
 }
 
 input createUserInput {
   name: String
   role: String
-  password: String
+  password: String!
   department: String
   email: String!
   about: String

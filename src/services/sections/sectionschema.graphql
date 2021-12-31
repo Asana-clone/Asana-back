@@ -1,0 +1,15 @@
+type SectionResult {
+  statuscode:Int
+  err: String
+}
+
+type Mutation {
+  createSection(input: SectionInput!): SectionResult!
+  updateSection(input: SectionInput!): SectionResult!
+  deleteSection(id:Int!): SectionResult!
+}
+
+input SectionInput {
+  id: Int!
+  title: String!
+}

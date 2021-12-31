@@ -15,6 +15,10 @@ export default class Tag extends Sequelize.Model {
           type: Sequelize.STRING,
           allowNull: false,
         },
+        color:{
+          type: Sequelize.STRING,
+          allowNull:true
+        }
       },
       {
         sequelize,

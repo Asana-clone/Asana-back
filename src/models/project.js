@@ -17,7 +17,7 @@ export default class Project extends Sequelize.Model {
         },
         subject: {
           type: Sequelize.STRING,
-          allowNull: false,
+          allowNull: true,
         },
         start: {
           type: Sequelize.STRING,
@@ -29,7 +29,7 @@ export default class Project extends Sequelize.Model {
         },
         desc: {
           type: Sequelize.STRING,
-          allowNull: false,
+          allowNull: true,
         },
         inviteCode: {
           type: Sequelize.STRING,

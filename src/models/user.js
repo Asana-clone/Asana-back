@@ -35,6 +35,10 @@ export default class User extends Sequelize.Model {
           type: Sequelize.STRING,
           allowNull: true,
         },
+        provider:{
+          type: Sequelize.STRING,
+          allowNull:false
+        }
       },
       {
         sequelize,
@@ -80,7 +84,7 @@ export default class User extends Sequelize.Model {
       onUpdate: 'CASCADE',
     });
     db.User.hasMany(db.Like, {
-      foreignKey: 'like',
+      foreignKey: 'user',
       sourceKey: 'id',
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',

@@ -64,19 +64,19 @@ export default class SubTask extends Sequelize.Model {
   }
   static associate(db) {
     db.SubTask.hasMany(db.Comment, {
-      foreignKey: 'task',
+      foreignKey: 'subTask',
       sourceKey: 'id',
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
     });
     db.SubTask.hasMany(db.Tag, {
-      foreignKey: 'task',
+      foreignKey: 'subTask',
       sourceKey: 'id',
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
     });
     db.SubTask.hasMany(db.Like, {
-      foreignKey: 'task',
+      foreignKey: 'subTask',
       sourceKey: 'id',
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',

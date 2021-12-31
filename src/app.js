@@ -1,7 +1,7 @@
 import { ApolloServer } from 'apollo-server-express';
 import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
 import { sequelize } from './models/index.js';
-import { getUser } from './services/users/utils.js'
+import { getUser } from './services/users/utils.js';
 import express from 'express';
 import http from 'http';
 import morgan from 'morgan';
@@ -59,7 +59,7 @@ async function startApolloServer(typeDefs, resolvers) {
   app.use(morgan('dev'));
 
   sequelize
-    .sync({ force: true })
+    .sync({ force: false })
     .then(() => console.log('데이터베이스 연결 성공!'))
     .catch((err) => console.error(err));
 

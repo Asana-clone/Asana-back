@@ -1,0 +1,40 @@
+type Task {
+  id: Int!
+  name: String
+  role: String
+  department: String
+  email: String
+  about: String
+  createdAt: String
+  updatedAt: String
+}
+
+type LoginResult {
+  ok: Boolean!
+  token: String
+  err: String
+}
+
+type TaskResult {
+  statuscode:Int
+  err: String
+}
+
+type Mutation {
+  createSection(input: TaskInput!): TaskResult!
+  updateSection(input: SectionInput!): TaskResult!
+  deleteSection(id:Int!): TaskResult!
+}
+
+input TaksInput {
+  id: Int!
+  title: String!
+  desc: String
+  asignee: Int
+  startDate: String
+  dueDate: String
+  status: String
+  type: String
+  process: String
+  priority: String
+}

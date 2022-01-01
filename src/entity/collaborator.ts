@@ -10,7 +10,6 @@ import {
 } from 'typeorm';
 import { User } from './User';
 import { Goal } from './Goal';
-import { Project } from './Project';
 
 @Entity('collaborators')
 export class Collaborator extends BaseEntity {

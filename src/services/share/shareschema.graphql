@@ -1,4 +1,4 @@
 type Result {
-  ok: Boolean!
+  statuscode: String!
   err: String
 }

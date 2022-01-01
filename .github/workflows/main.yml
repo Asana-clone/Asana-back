@@ -61,4 +61,4 @@ jobs:
       - name: Docker run
         run: |
           docker stop demo && docker rm demo && docker rmi ${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:latest
-          docker run -d -p 80:3000 --name demo ${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:latest
+          docker run -d -p 80:4000 --name demo ${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:latest

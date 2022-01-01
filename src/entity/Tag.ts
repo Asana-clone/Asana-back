@@ -6,24 +6,25 @@ import {
   ManyToOne,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
-import { Project } from './Project';
-import { User } from './User';
+import { SubTask } from './SubTask';
+import { TagRelation } from './TagRelation';
 
-@Entity('projectmembers')
-export class Projectmember extends BaseEntity {
+@Entity('tags')
+export class Tag extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column({
     nullable: false,
   })
-  authority: string;
+  name: string;
 
   @Column({
     nullable: true,
   })
-  projectRole: string;
+  color: string;
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
@@ -31,9 +32,9 @@ export class Projectmember extends BaseEntity {
   @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;
 
-  @ManyToOne((type) => Project, (project) => project.projectmembers)
-  project: Project;
-
-  @ManyToOne((type) => User, (user) => user.projectmembers)
-  user: User;
+  @OneToMany((type) => TagRelation, (tagRelation) => tagRelation.tag, {
+    nullable: false,
+    onDelete: 'CASCADE',
+  })
+  tagRelations: TagRelation[];
 }

@@ -10,6 +10,7 @@ import {
 import { Projectmember } from './Projectmember';
 import { Belong } from './Belong';
 import { Section } from './Section';
+import { Goal } from './Goal';
 
 @Entity('projects')
 export class Project extends BaseEntity {
@@ -60,4 +61,7 @@ export class Project extends BaseEntity {
 
   @OneToMany((type) => Section, (section) => section.project)
   sections: Section[];
+
+  @OneToMany((type) => Goal, (goal) => goal.project)
+  goals: Goal[];
 }

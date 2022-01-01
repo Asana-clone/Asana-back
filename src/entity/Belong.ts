@@ -8,6 +8,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Project } from './Project';
+import { Task } from './Task';
 
 @Entity('belongs')
 export class Belong extends BaseEntity {
@@ -22,4 +23,7 @@ export class Belong extends BaseEntity {
 
   @ManyToOne((type) => Project, (project) => project.belongs)
   project: Project;
+
+  @ManyToOne((type) => Task, (task) => task.belongs)
+  task: Task;
 }

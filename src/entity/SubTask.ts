@@ -9,10 +9,12 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Section } from './Section';
 import { Tag } from './Tag';
 import { Like } from './Like';
 import { Task } from './Task';
+import { User } from './User';
+import { TagRelation } from './TagRelation';
+import { Comment } from './Comment';
 
 @Entity('subTasks')
 export class SubTask extends BaseEntity {
@@ -76,12 +78,15 @@ export class SubTask extends BaseEntity {
   @OneToMany((type) => Comment, (comment) => comment.subTask)
   comments: Comment[];
 
-  @OneToMany((type) => Tag, (tag) => tag.subTask)
-  tags: Tag[];
-
   @OneToMany((type) => Like, (like) => like.subTask)
   likes: Like[];
 
-  @OneToOne((type) => Task, (task) => task.subTask)
+  @OneToMany((type) => TagRelation, (tagRelation) => tagRelation.subTask)
+  tagRelations: TagRelation[];
+
+  @ManyToOne((type) => Task, (task) => task.subTasks)
   task: Task;
+
+  @ManyToOne((type) => User, (user) => user.subTasks)
+  user: User;
 }

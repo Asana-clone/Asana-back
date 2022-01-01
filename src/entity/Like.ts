@@ -8,8 +8,9 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Project } from './Project';
+import { User } from './User';
 import { Task } from './Task';
+import { SubTask } from './SubTask';
 
 @Entity('likes')
 export class Like extends BaseEntity {

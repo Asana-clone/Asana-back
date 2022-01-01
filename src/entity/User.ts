@@ -10,7 +10,7 @@ import {
 import { Collaborator } from './Collaborator';
 import { Comment } from './Comment';
 import { Task } from './Task';
-import { Projectmember } from './ProjectMember';
+import { Projectmember } from './Projectmember';
 import { SubTask } from './SubTask';
 import { Like } from './Like';
 
@@ -63,7 +63,7 @@ export class User extends BaseEntity {
   })
   comments: Comment[];
 
-  @OneToMany((type) => Projectmember, (projectMember) => projectMember.user, {
+  @OneToMany((type) => Projectmember, (projectmember) => projectmember.user, {
     nullable: false,
     onDelete: 'CASCADE',
   })

@@ -1,10 +1,8 @@
-import * as express from 'express';
-import Server from './app';
-import 'dotenv/config';
-const port = +process.env.PORT;
+import server from './app';
+import { schemas, resolvers } from './services';
+import 'reflect-metadata';
+import dbc from './db';
 
-const app: express.Application = Server.getInstance();
+dbc.connection();
 
-app.listen(port, () => {
-  console.log(`server listening at http://localhost:${port}`);
-});
+server(schemas, resolvers);

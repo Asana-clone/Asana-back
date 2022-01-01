@@ -1,16 +1,17 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "target": "ES2021",
     "skipLibCheck": true,
     "module": "commonjs",
     "strict":true,
     "strictNullChecks": false,
     "esModuleInterop": false,
+    "resolveJsonModule": true,
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
+    "experimentalDecorators":true,
     "outDir": "dist",
-    "rootDir": "./src"
+    "rootDir": "src"
   },
-  "include": ["src/**/*", "model/dbc.ts"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules"]
 }

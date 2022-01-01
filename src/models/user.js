@@ -35,10 +35,6 @@ export default class User extends Sequelize.Model {
           type: Sequelize.STRING,
           allowNull: true,
         },
-        provider:{
-          type: Sequelize.STRING,
-          allowNull:false
-        }
       },
       {
         sequelize,
@@ -49,7 +45,7 @@ export default class User extends Sequelize.Model {
         paranoid: false,
         charset: 'utf8',
         collate: 'utf8_general_ci',
-      }
+      },
     );
   }
   static associate(db) {

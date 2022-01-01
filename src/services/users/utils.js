@@ -4,18 +4,17 @@ import db from '../../models/index.js';
 export const getUser = async (token) => {
   try {
     if (!token) {
-      return null;
+      return undefined;
     }
     const { hashedEmail } = await jwt.verify(token, process.env.JWT_SECRET_KEY);
-    const provider = hashedEmail.split(' ')[0];
-    const email = hashedEmail.split(' ')[1];
-    const user = await db.User.findOne({ where: { email, provider } });
+    const user = await db.User.findOne({ where: { email: hashedEmail } });
     if (user) {
+      console.log('유저 인증됨');
       return user;
     } else {
-      return null;
+      return undefined;
     }
   } catch {
-    return null;
+    return undefined;
   }
 };

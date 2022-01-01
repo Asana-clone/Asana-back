@@ -7,36 +7,45 @@ import http from 'http';
 import morgan from 'morgan';
 
 const formatError = (err) => {
-  console.error("--- GraphQL Error ---");
-  console.error("Path:", err.path);
-  console.error("Message:", err.message);
-  console.error("Code:", err.extensions.code);
-  console.error("Original Error", err.originalError);
-  let statuscode= 500;
+  console.error('--- GraphQL Error ---');
+  console.error('Path:', err.path);
+  console.error('Message:', err.message);
+  console.error('Code:', err.extensions.code);
+  console.error('Original Error', err.originalError);
+  let statuscode = 500;
   //에러 커스텀 어떻게 하실지 몰라서 일단 다 써놨습니다..
-  switch(err.extensions.code){
-    case 'GRAPHQL_PARSE_FAILED' : statuscode = 500;
+  switch (err.extensions.code) {
+    case 'GRAPHQL_PARSE_FAILED':
+      statuscode = 500;
       break;
-    case 'GRAPHQL_VALIDATION_FAILED' : statuscode = 500;
+    case 'GRAPHQL_VALIDATION_FAILED':
+      statuscode = 500;
       break;
-    case 'BAD_USER_INPUT' : statuscode = 400;
-      break;    
-    case 'UNAUTHENTICATED' : statuscode = 401;
+    case 'BAD_USER_INPUT':
+      statuscode = 400;
       break;
-    case 'FORBIDDEN' : statuscode = 401;
+    case 'UNAUTHENTICATED':
+      statuscode = 401;
       break;
-    case 'PERSISTED_QUERY_NOT_FOUND' : statuscode = 500;
+    case 'FORBIDDEN':
+      statuscode = 401;
       break;
-    case 'PERSISTED_QUERY_NOT_SUPPORTED' : statuscode = 500;
+    case 'PERSISTED_QUERY_NOT_FOUND':
+      statuscode = 500;
       break;
-    case 'INTERNAL_SERVER_ERROR' : statuscode = 500;
+    case 'PERSISTED_QUERY_NOT_SUPPORTED':
+      statuscode = 500;
       break;
-    default : statuscode = 500;
+    case 'INTERNAL_SERVER_ERROR':
+      statuscode = 500;
+      break;
+    default:
+      statuscode = 500;
   }
   return {
     statuscode,
-    err: err.message
-  }
+    err: err.message,
+  };
 };
 
 async function startApolloServer(typeDefs, resolvers) {

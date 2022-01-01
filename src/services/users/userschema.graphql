@@ -10,7 +10,7 @@ type User {
 }
 
 type LoginResult {
-  ok: Boolean!
+  statuscode: Int!
   token: String
   err: String
 }
@@ -22,12 +22,13 @@ type UserResult {
 }
 
 type Query {
-  login(email: String!, password: String!): LoginResult!
-  me: User
+  signIn(email: String!, password: String!): LoginResult!
+  getProfile: User
 }
 
 type Mutation {
-  createUser(input: createUserInput!): UserResult!
+  signUp(input: createUserInput!): UserResult!
+  updateUser(input: updateUserInput!): UserResult!
 }
 
 input createUserInput {
@@ -36,5 +37,12 @@ input createUserInput {
   password: String!
   department: String
   email: String!
+  about: String
+}
+
+input updateUserInput {
+  name: String
+  role: String
+  department: String
   about: String
 }

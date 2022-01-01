@@ -45,9 +45,10 @@ type Query{
 }
 
 type Mutation {
-  createTask(input: TaskInput!): getTaskResult
-  updateTask(input: TaskInput!): getTaskResult!
-  deleteTask(id:Int!): getTaskResult!
+  createTask(input: TaskInput!): Result!
+  updateTask(input: TaskInput!): Result!
+  deleteTask(id:Int!): Result!
+  like(id:Int!, user:Int!): getTaskResult!
 }
 
 input TaskInput {

@@ -1,4 +1,0 @@
-type Result {
-  statuscode: Int!
-  err: String
-}

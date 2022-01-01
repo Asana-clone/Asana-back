@@ -1,12 +1,12 @@
-import { ApolloServer } from 'apollo-server-express';
+import * as express from 'express';
+import { GraphQLError, GraphQLFormattedError, DocumentNode } from 'graphql';
 import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
-import { sequelize } from './models/index.js';
-import { getUser } from './services/users/utils.js';
-import express from 'express';
-import http from 'http';
-import morgan from 'morgan';
+import { IResolvers } from '@graphql-tools/utils';
+import { ApolloServer } from 'apollo-server-express';
+import * as http from 'http';
+import * as morgan from 'morgan';
 
-const formatError = (err) => {
+const formatError = (err: GraphQLError): GraphQLFormattedError => {
   console.error('--- GraphQL Error ---');
   console.error('Path:', err.path);
   console.error('Message:', err.message);
@@ -48,7 +48,10 @@ const formatError = (err) => {
   };
 };
 
-async function startApolloServer(typeDefs, resolvers) {
+async function startApolloServer(
+  typeDefs: DocumentNode | Array<DocumentNode> | string | Array<string>,
+  resolvers: IResolvers | Array<IResolvers>,
+) {
   const app = express();
 
   const httpServer = http.createServer(app);
@@ -57,20 +60,15 @@ async function startApolloServer(typeDefs, resolvers) {
     typeDefs,
     resolvers,
     formatError,
-    context: async (ctx) => {
-      if (ctx.req) {
-        return { loggedInUser: await getUser(ctx.req.headers.Authorization) };
-      }
-    },
+    // context: async (ctx) => {
+    //   if (ctx.req) {
+    //     return { loggedInUser: await getUser(ctx.req.headers.Authorization) };
+    //   }
+    // },
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   });
 
   app.use(morgan('dev'));
-
-  sequelize
-    .sync({ force: true })
-    .then(() => console.log('데이터베이스 연결 성공!'))
-    .catch((err) => console.error(err));
 
   await server.start();
 

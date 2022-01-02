@@ -9,7 +9,6 @@ import {
 } from 'typeorm';
 import { User } from './User';
 import { Task } from './Task';
-import { SubTask } from './SubTask';
 
 @Entity('comments')
 export class Comment extends BaseEntity {
@@ -19,7 +18,7 @@ export class Comment extends BaseEntity {
   @Column({
     nullable: false,
   })
-  email: string;
+  contents: string;
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
@@ -31,17 +30,11 @@ export class Comment extends BaseEntity {
     nullable: false,
     onDelete: 'CASCADE',
   })
-  user!: User;
+  user!: number | User;
 
   @ManyToOne((type) => Task, (task) => task.comments, {
     nullable: false,
     onDelete: 'CASCADE',
   })
-  task: Task;
-
-  @ManyToOne((type) => SubTask, (subTask) => subTask.comments, {
-    nullable: false,
-    onDelete: 'CASCADE',
-  })
-  subTask: SubTask;
+  task: number | Task;
 }

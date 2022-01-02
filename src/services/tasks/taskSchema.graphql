@@ -1,0 +1,65 @@
+type Task {
+  id: Int!
+  name: String
+  role: String
+  department: String
+  email: String
+  about: String
+  createdAt: String
+  updatedAt: String
+  comments:[Comment]
+  tags:[Tag]
+  subTasks:[SubTask]
+}
+
+type SubTask{
+  id: Int
+  title: String
+  asignee: String
+  startDate: String
+  dueDate: String
+}
+
+type Comment{
+  id: Int!
+  comment: String
+  name: String
+  createAt: String
+}
+
+type Tag{
+  id: Int!
+  name: String
+  color: String
+}
+
+type getTaskResult{
+  statuscode: Int!
+  task: Task
+  err: String
+}
+
+
+type Query{
+  getTaskDetail(id:Int!): getTaskResult!
+}
+
+type Mutation {
+  createTask(input: TaskInput!): Result!
+  updateTask(input: TaskInput!): Result!
+  deleteTask(id:Int!): Result!
+  like(id:Int!, user:Int!): getTaskResult!
+}
+
+input TaskInput {
+  id: Int!
+  title: String!
+  desc: String
+  userId: Int!
+  startDate: String
+  dueDate: String
+  status: String
+  type: String
+  process: String
+  priority: String
+}

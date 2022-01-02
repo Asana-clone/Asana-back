@@ -1,6 +1,7 @@
 import * as jwt from 'jsonwebtoken';
 import { getRepository } from 'typeorm';
 import { User } from '../../entity/User';
+import 'dotenv/config';
 
 export const getUser = async (token: string) => {
   try {
@@ -20,7 +21,8 @@ export const getUser = async (token: string) => {
     } else {
       return undefined;
     }
-  } catch {
+  } catch (err) {
+    console.error(err);
     return undefined;
   }
 };

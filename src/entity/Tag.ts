@@ -8,7 +8,6 @@ import {
   UpdateDateColumn,
   OneToMany,
 } from 'typeorm';
-import { SubTask } from './SubTask';
 import { TagRelation } from './TagRelation';
 
 @Entity('tags')

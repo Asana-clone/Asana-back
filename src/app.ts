@@ -3,6 +3,7 @@ import { GraphQLError, GraphQLFormattedError, DocumentNode } from 'graphql';
 import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
 import { IResolvers } from '@graphql-tools/utils';
 import { ApolloServer } from 'apollo-server-express';
+import { getUser } from './services/users/utils';
 import * as http from 'http';
 import * as morgan from 'morgan';
 
@@ -60,11 +61,11 @@ async function startApolloServer(
     typeDefs,
     resolvers,
     formatError,
-    // context: async (ctx) => {
-    //   if (ctx.req) {
-    //     return { loggedInUser: await getUser(ctx.req.headers.Authorization) };
-    //   }
-    // },
+    context: async (ctx) => {
+      if (ctx.req) {
+        return { loggedInUser: await getUser(ctx.req.headers.Authorization) };
+      }
+    },
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   });
 

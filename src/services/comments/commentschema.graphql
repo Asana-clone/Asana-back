@@ -1,0 +1,14 @@
+type Mutation{
+  createComment(input:createCommentInput!):Result!
+  updateComment(input:updateCommentInput!):Result!
+  deleteComment(id:Int!):Result
+}
+
+input createCommentInput{
+  taskId:Int!
+  contents:String!
+}
+input updateCommentInput{
+  id:Int!
+  contents:String!
+}

@@ -37,3 +37,16 @@ export interface taskInput {
     sectionId?: number;
   };
 }
+
+export interface createCommentInput {
+  input: {
+    taskId: number;
+    contents: string;
+  };
+}
+export interface updateCommentInput {
+  input: {
+    id: number;
+    contents: string;
+  };
+}

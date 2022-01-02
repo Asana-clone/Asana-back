@@ -3,26 +3,9 @@ import * as bcrypt from 'bcrypt';
 import { getRepository, getConnection } from 'typeorm';
 import { User } from '../../entity/User';
 import 'dotenv/config';
+import { ctx, signInput, userInput } from '../interface';
 
 const salt = Number(process.env.SALT);
-
-interface signInput {
-  email: string;
-  password: string;
-}
-interface ctx {
-  loggedInUser: User;
-}
-interface input {
-  input: {
-    name: string;
-    role: string;
-    password: string;
-    department: string;
-    email: string;
-    about: string;
-  };
-}
 
 const userResolvers = {
   Query: {
@@ -31,7 +14,6 @@ const userResolvers = {
         const hashedPw = await bcrypt.hash(password, salt);
         const userExist = getRepository(User).findOne({ where: { email } });
         const pwCompared = await bcrypt.compare(password, hashedPw);
-
         if (!userExist || !pwCompared) {
           return {
             statuscode: 401,
@@ -87,7 +69,7 @@ const userResolvers = {
     },
   },
   Mutation: {
-    signUp: async (_: any, { input }: input) => {
+    signUp: async (_: any, { input }: userInput) => {
       try {
         const provider = 'local';
         const { name, role, department, email, about, password } = input;
@@ -120,7 +102,7 @@ const userResolvers = {
         };
       }
     },
-    updateUser: async (_: any, { input }: input, { loggedInUser }: ctx) => {
+    updateUser: async (_: any, { input }: userInput, { loggedInUser }: ctx) => {
       try {
         if (!loggedInUser) {
           throw new Error('로그인되어있지 않습니다.');

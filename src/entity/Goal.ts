@@ -8,7 +8,6 @@ import {
   UpdateDateColumn,
   OneToMany,
 } from 'typeorm';
-import { Collaborator } from './Collaborator';
 import { Project } from './Project';
 
 @Entity('goals')
@@ -19,27 +18,22 @@ export class Goal extends BaseEntity {
   @Column({
     nullable: false,
   })
-  title: string;
+  name: string;
 
   @Column({
     nullable: true,
   })
-  public: boolean;
+  startDate: string;
+
+  @Column({
+    nullable: true,
+  })
+  dueDate: string;
 
   @Column({
     nullable: false,
   })
-  initial: string;
-
-  @Column({
-    nullable: false,
-  })
-  current: number;
-
-  @Column({
-    nullable: false,
-  })
-  target: number;
+  percentage: string;
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
@@ -47,15 +41,9 @@ export class Goal extends BaseEntity {
   @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;
 
-  @OneToMany((type) => Collaborator, (collaborator) => collaborator.goal, {
-    nullable: false,
-    onDelete: 'CASCADE',
-  })
-  collaborators: Collaborator[];
-
   @ManyToOne((type) => Project, (project) => project.goals, {
     nullable: false,
     onDelete: 'CASCADE',
   })
-  project: Project;
+  project: number | Project;
 }

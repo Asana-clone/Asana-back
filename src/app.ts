@@ -68,7 +68,7 @@ async function startApolloServer(
     formatError,
     context: async (ctx) => {
       if (ctx.req) {
-        return { loggedInUser: await getUser(ctx.req.headers.Authorization) };
+        return { loggedInUser: await getUser(ctx.req.headers.authorization) };
       }
     },
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
@@ -79,7 +79,6 @@ async function startApolloServer(
   await server.start();
 
   server.applyMiddleware({ app });
-
   await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
 
   console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);

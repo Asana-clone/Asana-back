@@ -32,7 +32,7 @@ type Mutation {
 }
 
 input createUserInput {
-  name: String
+  name: String!
   role: String
   password: String!
   department: String

@@ -12,7 +12,9 @@ const userResolvers = {
     signIn: async (_: any, { email, password }: signInput) => {
       try {
         const hashedPw = await bcrypt.hash(password, salt);
-        const userExist = getRepository(User).findOne({ where: { email } });
+        const userExist = await getRepository(User).findOne({
+          where: { email },
+        });
         const pwCompared = await bcrypt.compare(password, hashedPw);
         if (!userExist || !pwCompared) {
           return {
@@ -34,9 +36,6 @@ const userResolvers = {
         const accessToken = jwt.sign(
           { hashedEmail },
           process.env.JWT_SECRET_KEY,
-          {
-            expiresIn: '1h',
-          },
         );
         return {
           statuscode: 200,
@@ -59,6 +58,7 @@ const userResolvers = {
             email: loggedInUser.email,
           },
         });
+        console.log(user);
         return user;
       } catch (err) {
         return {

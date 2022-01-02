@@ -9,8 +9,6 @@ import * as morgan from 'morgan';
 
 interface e extends GraphQLFormattedError {
   readonly statuscode: number;
-  readonly err: string;
-  readonly message?: string;
 }
 
 const formatError = (err: GraphQLError): e => {
@@ -51,7 +49,7 @@ const formatError = (err: GraphQLError): e => {
   }
   return {
     statuscode,
-    err: err.message,
+    message: err.message,
   };
 };
 

@@ -48,7 +48,9 @@ type Mutation {
   createTask(input: TaskInput!): Result!
   updateTask(input: TaskInput!): Result!
   deleteTask(id:Int!): Result!
-  like(id:Int!, user:Int!): getTaskResult!
+  likeTask(id:Int!, user:Int!): getTaskResult!
+  createTag(taskId:Int!, name:Int!, color:Int!):Result!
+  deleteTag(id:Int)
 }
 
 input TaskInput {

@@ -2,6 +2,8 @@ import { getConnection, getRepository } from 'typeorm';
 import { Task } from '../../entity/Task';
 import { ctx, taskInput } from '../interface';
 import { Like } from '../../entity/Like';
+import { Tag } from '../../entity/Tag';
+import { TagRelation } from '../../entity/TagRelation';
 
 const taskResolvers = {
   Query: {
@@ -128,7 +130,7 @@ const taskResolvers = {
         };
       }
     },
-    like: async (_: any, { id }: { id: number }, { loggedInUser }: ctx) => {
+    likeTask: async (_: any, { id }: { id: number }, { loggedInUser }: ctx) => {
       try {
         const user = loggedInUser;
         const likeExist = await getRepository(Like).findOne({
@@ -174,6 +176,62 @@ const taskResolvers = {
         console.error(err);
         return {
           statuscode: 400,
+          err,
+        };
+      }
+    },
+    createTag: async (
+      _: any,
+      { taskId, name, color }: { taskId: number; name: string; color: string },
+    ) => {
+      try {
+        const tagExist = await getRepository(Tag).findOne({
+          where: { name, color },
+        });
+        if (tagExist) {
+          await getRepository(TagRelation).save({
+            tag: tagExist.id,
+            task: taskId,
+          });
+        } else {
+          const tag = await getRepository(Tag).save({
+            name,
+            color,
+          });
+          await getRepository(TagRelation).save({
+            tag: tag.id,
+            task: taskId,
+          });
+        }
+        return {
+          statuscode: 200,
+        };
+      } catch (err) {
+        console.error(err);
+        return {
+          statuscode: 500,
+          err,
+        };
+      }
+    },
+    deleteTag: async (
+      _: any,
+      { id, taskId }: { id: number; taskId: number },
+    ) => {
+      try {
+        await getConnection()
+          .createQueryBuilder()
+          .delete()
+          .from(TagRelation)
+          .where('tag = :tag AND task = :task', { tag: id, task: taskId })
+          .execute();
+        return {
+          statuscode: 200,
+        };
+      } catch (err) {
+        console.error(err);
+        return {
+          statuscode: 500,
           err,
         };
       }

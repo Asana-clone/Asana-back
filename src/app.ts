@@ -7,7 +7,12 @@ import { getUser } from './services/users/utils';
 import * as http from 'http';
 import * as morgan from 'morgan';
 
-const formatError = (err: GraphQLError): GraphQLFormattedError => {
+interface e extends GraphQLFormattedError {
+  readonly statuscode: number;
+  readonly err: string;
+}
+
+const formatError = (err: GraphQLError): e => {
   console.error('--- GraphQL Error ---');
   console.error('Path:', err.path);
   console.error('Message:', err.message);

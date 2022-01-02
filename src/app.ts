@@ -10,10 +10,11 @@ import * as morgan from 'morgan';
 interface e extends GraphQLFormattedError {
   readonly statuscode: number;
   readonly err: string;
+  readonly message?: string;
 }
 
 const formatError = (err: GraphQLError): e => {
-  console.error('--- GraphQL Error ---');
+  console.error('--- GraphQL Error --w-');
   console.error('Path:', err.path);
   console.error('Message:', err.message);
   console.error('Code:', err.extensions.code);

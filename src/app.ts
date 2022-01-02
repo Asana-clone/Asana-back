@@ -3,10 +3,16 @@ import { GraphQLError, GraphQLFormattedError, DocumentNode } from 'graphql';
 import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
 import { IResolvers } from '@graphql-tools/utils';
 import { ApolloServer } from 'apollo-server-express';
+import { getUser } from './services/users/utils';
 import * as http from 'http';
 import * as morgan from 'morgan';
 
-const formatError = (err: GraphQLError): GraphQLFormattedError => {
+interface e extends GraphQLFormattedError {
+  readonly statuscode: number;
+  readonly err: string;
+}
+
+const formatError = (err: GraphQLError): e => {
   console.error('--- GraphQL Error ---');
   console.error('Path:', err.path);
   console.error('Message:', err.message);
@@ -60,11 +66,11 @@ async function startApolloServer(
     typeDefs,
     resolvers,
     formatError,
-    // context: async (ctx) => {
-    //   if (ctx.req) {
-    //     return { loggedInUser: await getUser(ctx.req.headers.Authorization) };
-    //   }
-    // },
+    context: async (ctx) => {
+      if (ctx.req) {
+        return { loggedInUser: await getUser(ctx.req.headers.authorization) };
+      }
+    },
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   });
 
@@ -73,7 +79,6 @@ async function startApolloServer(
   await server.start();
 
   server.applyMiddleware({ app });
-
   await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
 
   console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);

@@ -29,5 +29,5 @@ export class Section extends BaseEntity {
   tasks: Task[];
 
   @ManyToOne((type) => Project, (project) => project.sections)
-  project: Project;
+  project: number | Project;
 }

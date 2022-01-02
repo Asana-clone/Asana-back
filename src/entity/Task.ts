@@ -3,14 +3,12 @@ import {
   BaseEntity,
   PrimaryGeneratedColumn,
   Column,
-  OneToOne,
   OneToMany,
   ManyToOne,
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { Section } from './Section';
-import { SubTask } from './SubTask';
 import { Comment } from './Comment';
 import { User } from './User';
 import { TagRelation } from './TagRelation';
@@ -77,13 +75,10 @@ export class Task extends BaseEntity {
   updatedAt: Date;
 
   @ManyToOne((section) => Section, (section) => section.tasks)
-  section: Section;
+  section: number | Section;
 
   @ManyToOne((section) => User, (user) => user.tasks)
-  user: User;
-
-  @OneToMany((type) => SubTask, (subtask) => subtask.task)
-  subTasks: SubTask[];
+  user: number | User;
 
   @OneToMany((type) => Comment, (comment) => comment.task)
   comments: Comment[];

@@ -1,3 +1,48 @@
-type Query{
-  signIn:Int
+type User {
+  id: Int!
+  name: String
+  role: String
+  department: String
+  email: String
+  about: String
+  createdAt: String
+  updatedAt: String
+}
+
+type LoginResult {
+  statuscode: Int!
+  token: String
+  err: String
+}
+
+type UserResult {
+  statuscode: Int!
+  user: User
+  err: String
+}
+
+type Query {
+  signIn(email: String!, password: String!): LoginResult!
+  getProfile: User
+}
+
+type Mutation {
+  signUp(input: createUserInput!): UserResult!
+  updateUser(input: updateUserInput!): UserResult!
+}
+
+input createUserInput {
+  name: String!
+  role: String
+  password: String!
+  department: String
+  email: String!
+  about: String
+}
+
+input updateUserInput {
+  name: String
+  role: String
+  department: String
+  about: String
 }

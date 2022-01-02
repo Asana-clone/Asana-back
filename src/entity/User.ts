@@ -7,11 +7,9 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Collaborator } from './Collaborator';
 import { Comment } from './Comment';
 import { Task } from './Task';
 import { Projectmember } from './Projectmember';
-import { SubTask } from './SubTask';
 import { Like } from './Like';
 
 @Entity('users')
@@ -74,22 +72,6 @@ export class User extends BaseEntity {
     onDelete: 'CASCADE',
   })
   tasks: Task[];
-
-  @OneToMany((type) => SubTask, (subTask) => subTask.user, {
-    nullable: false,
-    onDelete: 'CASCADE',
-  })
-  subTasks: SubTask[];
-
-  @OneToMany(
-    (type) => Collaborator,
-    (collaborator) => collaborator.collaborator,
-    {
-      nullable: false,
-      onDelete: 'CASCADE',
-    },
-  )
-  collaborators: Collaborator[];
 
   @OneToMany((type) => Like, (like) => like.user, {
     nullable: false,

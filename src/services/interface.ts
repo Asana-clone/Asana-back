@@ -37,11 +37,14 @@ export interface updateProjectInput {
   };
 }
 
-export interface sectionInput {
+export interface createSectionInput {
+  input: { projectId: number; title: string };
+}
+export interface updateSectionInput {
   input: { id: number; title: string };
 }
 
-export interface taskInput {
+export interface updateTaskInput {
   input: {
     id: number;
     title: string;
@@ -54,6 +57,20 @@ export interface taskInput {
     process?: string;
     priority?: string;
     sectionId?: number;
+  };
+}
+export interface createTaskInput {
+  input: {
+    title: string;
+    desc?: string;
+    userId?: number;
+    startDate?: string;
+    dueDate?: string;
+    status?: string;
+    type?: string;
+    process?: string;
+    priority?: string;
+    sectionId: number;
   };
 }
 

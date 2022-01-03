@@ -1,10 +1,15 @@
 type Mutation {
-  createSection(input: SectionInput!): Result!
-  updateSection(input: SectionInput!): Result!
+  createSection(input: createSectionInput!): Result!
+  updateSection(input: updateSectionInput!): Result!
   deleteSection(id:Int!): Result!
 }
 
-input SectionInput {
+input createSectionInput{
+  projectId: Int!
+  title: String!
+}
+
+input updateSectionInput {
   id: Int!
   title: String!
 }

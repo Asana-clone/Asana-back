@@ -7,6 +7,7 @@ class DB_CONNECT {
       console.log('connect mysql DB');
       return db;
     } catch (e: any) {
+      console.error(e);
       throw new Error(e);
     }
   }

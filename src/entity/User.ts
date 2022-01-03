@@ -9,7 +9,6 @@ import {
 } from 'typeorm';
 import { Comment } from './Comment';
 import { Task } from './Task';
-import { SubTask } from './SubTask';
 import { ProjectMember } from './ProjectMember';
 import { Like } from './Like';
 

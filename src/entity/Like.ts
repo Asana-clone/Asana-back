@@ -10,7 +10,6 @@ import {
 } from 'typeorm';
 import { User } from './User';
 import { Task } from './Task';
-import { SubTask } from './SubTask';
 
 @Entity('likes')
 export class Like extends BaseEntity {
@@ -24,11 +23,8 @@ export class Like extends BaseEntity {
   updatedAt: Date;
 
   @ManyToOne((type) => User, (user) => user.likes)
-  user: User;
+  user: number | User;
 
   @ManyToOne((type) => Task, (task) => task.likes)
-  task: Task;
-
-  @ManyToOne((type) => SubTask, (subTask) => subTask.likes)
-  subTask: SubTask;
+  task: number | Task;
 }

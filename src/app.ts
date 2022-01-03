@@ -9,11 +9,10 @@ import * as morgan from 'morgan';
 
 interface e extends GraphQLFormattedError {
   readonly statuscode: number;
-  readonly err: string;
 }
 
 const formatError = (err: GraphQLError): e => {
-  console.error('--- GraphQL Error ---');
+  console.error('--- GraphQL Error --w-');
   console.error('Path:', err.path);
   console.error('Message:', err.message);
   console.error('Code:', err.extensions.code);
@@ -50,7 +49,7 @@ const formatError = (err: GraphQLError): e => {
   }
   return {
     statuscode,
-    err: err.message,
+    message: err.message,
   };
 };
 
@@ -79,7 +78,6 @@ async function startApolloServer(
   await server.start();
 
   server.applyMiddleware({ app });
-
   await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
 
   console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);

@@ -32,8 +32,8 @@ export class ProjectMember extends BaseEntity {
   updatedAt: Date;
 
   @ManyToOne((type) => Project, (project) => project.projectMembers)
-  project: Project;
+  project: number | Project;
 
   @ManyToOne((type) => User, (user) => user.projectMembers)
-  user: User;
+  user: number | User;
 }

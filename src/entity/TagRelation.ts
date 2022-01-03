@@ -8,7 +8,6 @@ import {
 } from 'typeorm';
 import { Tag } from './Tag';
 import { Task } from './Task';
-import { SubTask } from './SubTask';
 
 @Entity('tagRelations')
 export class TagRelation extends BaseEntity {
@@ -25,17 +24,11 @@ export class TagRelation extends BaseEntity {
     nullable: false,
     onDelete: 'CASCADE',
   })
-  tag: Tag;
+  tag: number | Tag;
 
   @ManyToOne((type) => Task, (task) => task.tagRelations, {
     nullable: false,
     onDelete: 'CASCADE',
   })
-  task: Task;
-
-  @ManyToOne((type) => SubTask, (subTask) => subTask.tagRelations, {
-    nullable: false,
-    onDelete: 'CASCADE',
-  })
-  subTask: SubTask;
+  task: number | Task;
 }

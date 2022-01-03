@@ -36,9 +36,6 @@ const userResolvers = {
         const accessToken = jwt.sign(
           { hashedEmail },
           process.env.JWT_SECRET_KEY,
-          {
-            expiresIn: '1h',
-          },
         );
         return {
           statuscode: 200,
@@ -56,7 +53,7 @@ const userResolvers = {
         if (!loggedInUser) {
           throw new Error('로그인되어있지 않습니다.');
         }
-        const user = getRepository(User).findOne({
+        const user = await getRepository(User).findOne({
           where: {
             email: loggedInUser.email,
           },

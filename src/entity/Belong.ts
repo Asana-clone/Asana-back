@@ -22,8 +22,8 @@ export class Belong extends BaseEntity {
   updatedAt: Date;
 
   @ManyToOne((type) => Project, (project) => project.belongs)
-  project: Project;
+  project: number | Project;
 
   @ManyToOne((type) => Task, (task) => task.belongs)
-  task: Task;
+  task: number | Task;
 }

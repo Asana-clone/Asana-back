@@ -18,6 +18,7 @@ const formatError = (err: GraphQLError): e => {
   console.error('Code:', err.extensions.code);
   console.error('Original Error', err.originalError);
   let statuscode = 500;
+  console.error(err);
   //에러 커스텀 어떻게 하실지 몰라서 일단 다 써놨습니다..
   switch (err.extensions.code) {
     case 'GRAPHQL_PARSE_FAILED':

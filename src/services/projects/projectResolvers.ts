@@ -1,6 +1,6 @@
 import { getRepository, getConnection } from 'typeorm';
 import { idInput, createProjectInput, updateProjectInput } from '../interface';
-import { Project } from './../../entity/Project';
+import { Project } from '../../entity/Project';
 
 const projectResolvers = {
   Query: {
@@ -19,6 +19,7 @@ const projectResolvers = {
           project,
         };
       } catch (err) {
+        console.error(err);
         return {
           statuscode: 500,
           err,
@@ -41,6 +42,7 @@ const projectResolvers = {
           projects,
         };
       } catch (err) {
+        console.error(err);
         return {
           statuscode: 500,
           err,
@@ -85,6 +87,7 @@ const projectResolvers = {
           statuscode: 200,
         };
       } catch (err) {
+        console.error(err);
         return {
           statuscode: 400,
           err,
@@ -103,6 +106,7 @@ const projectResolvers = {
           statuscode: 200,
         };
       } catch (err) {
+        console.error(err);
         return {
           statuscode: 400,
           err,

@@ -1,6 +1,6 @@
 import { getConnection, getRepository } from 'typeorm';
 import { Task } from '../../entity/Task';
-import { ctx, taskInput } from '../interface';
+import { ctx, createTaskInput, updateTaskInput } from '../interface';
 import { Like } from '../../entity/Like';
 import { Tag } from '../../entity/Tag';
 import { TagRelation } from '../../entity/TagRelation';
@@ -11,11 +11,14 @@ const taskResolvers = {
       try {
         const task = await getRepository(Task)
           .createQueryBuilder('tasks')
-          .leftJoinAndSelect('tasks.commentId', 'commentId')
-          .innerJoinAndSelect('comments.userId', 'userId')
-          .leftJoinAndSelect('tasks.tags', 'tags')
+          .leftJoinAndSelect('tasks.comments', 'comments')
+          .leftJoinAndSelect('tasks.user', 'users')
+          .leftJoinAndSelect('comments.user', 'user')
+          .leftJoinAndSelect('tasks.tagRelations', 'tagRelations')
+          .leftJoinAndSelect('tagRelations.tag', 'tag')
           .where({ id })
           .getOne();
+        console.log(task);
         return {
           statuscode: 200,
           task,
@@ -29,12 +32,13 @@ const taskResolvers = {
       }
     },
   },
+
   Mutation: {
-    createTask: async (_: any, { input }: taskInput) => {
+    createTask: async (_: any, { input }: createTaskInput) => {
       try {
         console.log(input);
         const {
-          id,
+          sectionId,
           title,
           desc,
           userId,
@@ -46,10 +50,10 @@ const taskResolvers = {
           priority,
         } = input;
         await getRepository(Task).save({
-          sectionId: id,
+          section: sectionId,
           title,
           desc,
-          userId,
+          user: userId,
           startDate,
           dueDate,
           status,
@@ -68,7 +72,8 @@ const taskResolvers = {
         };
       }
     },
-    updateTask: async (_: any, { input }: taskInput) => {
+
+    updateTask: async (_: any, { input }: updateTaskInput) => {
       try {
         //추후 수정
         const {
@@ -105,6 +110,7 @@ const taskResolvers = {
           statuscode: 200,
         };
       } catch (err) {
+        console.error(err);
         return {
           statuscode: 400,
           err,

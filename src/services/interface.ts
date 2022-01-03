@@ -18,6 +18,25 @@ export interface userInput {
   };
 }
 
+export interface idInput {
+  id: number;
+}
+
+export interface createProjectInput {
+  input: {
+    title: string;
+    desc: string;
+  };
+}
+
+export interface updateProjectInput {
+  input: {
+    id: number;
+    title: string;
+    desc: string;
+  };
+}
+
 export interface sectionInput {
   input: { id: number; title: string };
 }

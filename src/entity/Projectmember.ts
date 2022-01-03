@@ -10,8 +10,8 @@ import {
 import { Project } from './Project';
 import { User } from './User';
 
-@Entity('projectmembers')
-export class Projectmember extends BaseEntity {
+@Entity('projectMembers')
+export class ProjectMember extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -31,9 +31,9 @@ export class Projectmember extends BaseEntity {
   @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;
 
-  @ManyToOne((type) => Project, (project) => project.projectmembers)
+  @ManyToOne((type) => Project, (project) => project.projectMembers)
   project: number | Project;
 
-  @ManyToOne((type) => User, (user) => user.projectmembers)
+  @ManyToOne((type) => User, (user) => user.projectMembers)
   user: number | User;
 }

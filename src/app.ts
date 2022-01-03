@@ -68,7 +68,7 @@ async function startApolloServer(
     formatError,
     context: async (ctx) => {
       if (ctx.req) {
-        return { loggedInUser: await getUser(ctx.req.headers.Authorization) };
+        return { loggedInUser: await getUser(ctx.req.headers.authorization) };
       }
     },
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],

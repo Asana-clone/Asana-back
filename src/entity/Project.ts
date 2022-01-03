@@ -7,7 +7,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Projectmember } from './Projectmember';
+import { ProjectMember } from './ProjectMember';
 import { Belong } from './Belong';
 import { Section } from './Section';
 import { Goal } from './Goal';
@@ -23,12 +23,12 @@ export class Project extends BaseEntity {
   title: string;
 
   @Column({
-    nullable: false,
+    nullable: true,
   })
   subject: string;
 
   @Column({
-    nullable: false,
+    nullable: true,
   })
   start: string;
 
@@ -53,8 +53,8 @@ export class Project extends BaseEntity {
   @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;
 
-  @OneToMany((type) => Projectmember, (projectmember) => projectmember.project)
-  projectmembers: Projectmember[];
+  @OneToMany((type) => ProjectMember, (projectMember) => projectMember.project)
+  projectMembers: ProjectMember[];
 
   @OneToMany((type) => Belong, (belong) => belong.project)
   belongs: Belong[];

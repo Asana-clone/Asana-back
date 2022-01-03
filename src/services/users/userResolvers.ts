@@ -12,7 +12,9 @@ const userResolvers = {
     signIn: async (_: any, { email, password }: signInput) => {
       try {
         const hashedPw = await bcrypt.hash(password, salt);
-        const userExist = getRepository(User).findOne({ where: { email } });
+        const userExist = await getRepository(User).findOne({
+          where: { email },
+        });
         const pwCompared = await bcrypt.compare(password, hashedPw);
         if (!userExist || !pwCompared) {
           return {

@@ -29,6 +29,7 @@ const taskResolvers = {
       }
     },
   },
+
   Mutation: {
     createTask: async (_: any, { input }: taskInput) => {
       try {
@@ -68,6 +69,7 @@ const taskResolvers = {
         };
       }
     },
+
     updateTask: async (_: any, { input }: taskInput) => {
       try {
         //추후 수정
@@ -105,6 +107,7 @@ const taskResolvers = {
           statuscode: 200,
         };
       } catch (err) {
+        console.error(err);
         return {
           statuscode: 400,
           err,

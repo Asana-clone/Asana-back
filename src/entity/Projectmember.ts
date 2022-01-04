@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 import { Project } from './Project';
 import { User } from './User';
-import { Authority } from '../constant';
+import { Authority } from '../constants';
 
 @Entity('projectMembers')
 export class ProjectMember extends BaseEntity {

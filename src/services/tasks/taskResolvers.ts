@@ -23,11 +23,11 @@ const taskResolvers = {
           statuscode: 200,
           task,
         };
-      } catch (err) {
-        console.error(err);
+      } catch (message) {
+        console.error(message);
         return {
           statuscode: 400,
-          err,
+          message,
         };
       }
     },
@@ -64,11 +64,11 @@ const taskResolvers = {
         return {
           statuscode: 200,
         };
-      } catch (err) {
-        console.error(err);
+      } catch (message) {
+        console.error(message);
         return {
           statuscode: 400,
-          err,
+          message,
         };
       }
     },
@@ -109,11 +109,11 @@ const taskResolvers = {
         return {
           statuscode: 200,
         };
-      } catch (err) {
-        console.error(err);
+      } catch (message) {
+        console.error(message);
         return {
           statuscode: 400,
-          err,
+          message,
         };
       }
     },
@@ -128,11 +128,11 @@ const taskResolvers = {
         return {
           statuscode: 200,
         };
-      } catch (err) {
-        console.error(err);
+      } catch (message) {
+        console.error(message);
         return {
           statuscode: 400,
-          err,
+          message,
         };
       }
     },
@@ -178,11 +178,11 @@ const taskResolvers = {
             msg: '좋아요 성공',
           };
         }
-      } catch (err) {
-        console.error(err);
+      } catch (message) {
+        console.error(message);
         return {
           statuscode: 400,
-          err,
+          message,
         };
       }
     },
@@ -212,11 +212,11 @@ const taskResolvers = {
         return {
           statuscode: 200,
         };
-      } catch (err) {
-        console.error(err);
+      } catch (message) {
+        console.error(message);
         return {
           statuscode: 500,
-          err,
+          message,
         };
       }
     },
@@ -234,11 +234,11 @@ const taskResolvers = {
         return {
           statuscode: 200,
         };
-      } catch (err) {
-        console.error(err);
+      } catch (message) {
+        console.error(message);
         return {
           statuscode: 500,
-          err,
+          message,
         };
       }
     },

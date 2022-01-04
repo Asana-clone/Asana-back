@@ -1,5 +1,5 @@
 import { User } from '../entity/User';
-import { Authority } from '../constant';
+import { Authority } from '../constants';
 
 export interface signInput {
   email: string;

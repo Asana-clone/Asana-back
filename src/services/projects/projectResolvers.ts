@@ -9,7 +9,7 @@ import {
 import { Project } from './../../entity/Project';
 import { ProjectMember } from './../../entity/ProjectMember';
 import { User } from './../../entity/User';
-import { Authority } from '../../constant';
+import { Authority } from '../../constants';
 
 const projectResolvers = {
   Query: {
@@ -34,11 +34,11 @@ const projectResolvers = {
           statuscode: 200,
           project,
         };
-      } catch (err) {
-        console.error(err);
+      } catch (message) {
+        console.error(message);
         return {
           statuscode: 500,
-          err,
+          message,
         };
       }
     },
@@ -60,11 +60,11 @@ const projectResolvers = {
           statuscode: 200,
           projects,
         };
-      } catch (err) {
-        console.error(err);
+      } catch (message) {
+        console.error(message);
         return {
           statuscode: 500,
-          err,
+          message,
         };
       }
     },
@@ -94,11 +94,11 @@ const projectResolvers = {
           statuscode: 200,
           project,
         };
-      } catch (err) {
-        console.error(err);
+      } catch (message) {
+        console.error(message);
         return {
           statuscode: 400,
-          err,
+          message,
         };
       }
     },
@@ -127,11 +127,11 @@ const projectResolvers = {
         return {
           statuscode: 200,
         };
-      } catch (err) {
-        console.error(err);
+      } catch (message) {
+        console.error(message);
         return {
           statuscode: 400,
-          err,
+          message,
         };
       }
     },
@@ -149,11 +149,11 @@ const projectResolvers = {
         return {
           statuscode: 200,
         };
-      } catch (err) {
-        console.error(err);
+      } catch (message) {
+        console.error(message);
         return {
           statuscode: 400,
-          err,
+          message,
         };
       }
     },
@@ -183,10 +183,10 @@ const projectResolvers = {
         return {
           statuscode: 200,
         };
-      } catch (err) {
+      } catch (message) {
         return {
           statuscode: 400,
-          err,
+          message,
         };
       }
     },
@@ -219,10 +219,10 @@ const projectResolvers = {
         return {
           statuscode: 200,
         };
-      } catch (err) {
+      } catch (message) {
         return {
           statuscode: 400,
-          err,
+          message,
         };
       }
     },

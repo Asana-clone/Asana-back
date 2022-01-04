@@ -49,6 +49,8 @@ jobs:
           DEV_DB_PW: ${{ secrets.DEV_DB_PW }}
           PRODUCT_DB_PW: ${{ secrets.PRODUCT_DB_PW }}
           DB_NAME: ${{ secrets.DB_NAME }}
+          DEV_END_POINT: ${{ secrets.DEV_END_POINT }}
+          PRODUCT_END_POINT: ${{ secrets.PRODUCT_END_POINT }}
           DB_PORT: ${{ secrets.DB_PORT }}
           PORT: ${{ secrets.PORT }}
           SALT: ${{ secrets.SALT }}

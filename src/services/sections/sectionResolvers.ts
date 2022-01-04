@@ -1,15 +1,15 @@
 import { getRepository, getConnection } from 'typeorm';
 import { Section } from '../../entity/Section';
-import { sectionInput } from '../interface';
+import { createSectionInput, updateSectionInput } from '../interface';
 
 const sectionResolvers = {
   Mutation: {
-    createSection: async (_: any, { input }: sectionInput) => {
+    createSection: async (_: any, { input }: createSectionInput) => {
       try {
-        const { id, title } = input;
+        const { projectId, title } = input;
         await getRepository(Section).save({
           title,
-          projectId: id,
+          projectId: projectId,
         });
         return {
           statuscode: 200,
@@ -21,7 +21,7 @@ const sectionResolvers = {
         };
       }
     },
-    updateSection: async (_: any, { input }: sectionInput) => {
+    updateSection: async (_: any, { input }: updateSectionInput) => {
       try {
         const { id, title } = input;
         await getConnection()

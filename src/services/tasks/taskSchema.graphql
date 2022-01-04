@@ -1,14 +1,24 @@
 type Task {
   id: Int!
-  name: String
-  role: String
-  department: String
-  email: String
-  about: String
+  title:String!
+  desc: String
+  startDate:String
+  dueDate: String
+  type:String
+  status:String
+  process:String
+  priority:String
+  likeNum:Int
+  user: User
   createdAt: String
   updatedAt: String
   comments: [Comment]
-  tags: [Tag]
+  tagRelations: [TagRelation]
+}
+
+type TagRelation{
+  id: Int!
+  tag: Tag
 }
 
 type Tag {
@@ -28,19 +38,19 @@ type Query {
 }
 
 type Mutation {
-  createTask(input: TaskInput!): Result!
-  updateTask(input: TaskInput!): Result!
+  createTask(input:TaskInput!): Result!
+  updateTask(input:TaskInput!): Result!
   deleteTask(id: Int!): Result!
   likeTask(id: Int!, user: Int!): getTaskResult!
-  createTag(taskId: Int!, name: Int!, color: Int!): Result!
+  createTag(taskId: Int!, name: String!, color: String!): Result!
   deleteTag(id: Int): Result!
 }
-
 input TaskInput {
-  id: Int!
+  id:Int
+  sectionId: Int!
   title: String!
   desc: String
-  userId: Int!
+  userId: Int
   startDate: String
   dueDate: String
   status: String

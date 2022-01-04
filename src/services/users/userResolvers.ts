@@ -42,6 +42,7 @@ const userResolvers = {
           token: accessToken,
         };
       } catch (err) {
+        console.error(err);
         return {
           statuscode: 401,
           err,
@@ -60,6 +61,7 @@ const userResolvers = {
         });
         return user;
       } catch (err) {
+        console.error(err);
         return {
           statuscode: 401,
           err,
@@ -121,6 +123,7 @@ const userResolvers = {
           user,
         };
       } catch (err) {
+        console.error(err);
         return {
           statuscode: 500,
           err,

@@ -1,4 +1,5 @@
 import { User } from '../entity/User';
+import { Authority } from '../constants';
 
 export interface signInput {
   email: string;
@@ -7,6 +8,7 @@ export interface signInput {
 export interface ctx {
   loggedInUser: User;
 }
+
 export interface userInput {
   input: {
     name: string;
@@ -18,11 +20,45 @@ export interface userInput {
   };
 }
 
-export interface sectionInput {
+export interface idInput {
+  id: number;
+}
+
+export interface projectInput {
+  input: {
+    id?: number;
+    title?: string;
+    desc?: string;
+    subject?: string;
+    start?: string;
+    end?: string;
+  };
+}
+
+export interface inviteProjectInput {
+  input: {
+    projectId: number;
+    email?: string;
+  };
+}
+
+export interface projectMemberInput {
+  input: {
+    projectId: number;
+    email?: string;
+    authority?: Authority;
+    projectRole?: string;
+  };
+}
+
+export interface createSectionInput {
+  input: { projectId: number; title: string };
+}
+export interface updateSectionInput {
   input: { id: number; title: string };
 }
 
-export interface taskInput {
+export interface updateTaskInput {
   input: {
     id: number;
     title: string;
@@ -35,5 +71,52 @@ export interface taskInput {
     process?: string;
     priority?: string;
     sectionId?: number;
+  };
+}
+export interface createTaskInput {
+  input: {
+    title: string;
+    desc?: string;
+    userId?: number;
+    startDate?: string;
+    dueDate?: string;
+    status?: string;
+    type?: string;
+    process?: string;
+    priority?: string;
+    sectionId: number;
+  };
+}
+
+export interface createCommentInput {
+  input: {
+    taskId: number;
+    contents: string;
+  };
+}
+export interface updateCommentInput {
+  input: {
+    id: number;
+    contents: string;
+  };
+}
+
+export interface createGoalInput {
+  input: {
+    name: string;
+    projectId?: number;
+    startDate?: string;
+    dueDate?: string;
+    percentage?: number;
+  };
+}
+export interface updateGoalInput {
+  input: {
+    id: number;
+    projectId?: number;
+    name?: string;
+    startDate?: string;
+    dueDate?: string;
+    percentage?: number;
   };
 }

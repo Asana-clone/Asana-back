@@ -42,6 +42,7 @@ const userResolvers = {
           token: accessToken,
         };
       } catch (err) {
+        console.error(err);
         return {
           statuscode: 401,
           err,
@@ -53,14 +54,14 @@ const userResolvers = {
         if (!loggedInUser) {
           throw new Error('로그인되어있지 않습니다.');
         }
-        const user = getRepository(User).findOne({
+        const user = await getRepository(User).findOne({
           where: {
             email: loggedInUser.email,
           },
         });
-        console.log(user);
         return user;
       } catch (err) {
+        console.error(err);
         return {
           statuscode: 401,
           err,
@@ -122,6 +123,7 @@ const userResolvers = {
           user,
         };
       } catch (err) {
+        console.error(err);
         return {
           statuscode: 500,
           err,

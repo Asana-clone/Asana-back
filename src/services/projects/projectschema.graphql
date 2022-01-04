@@ -1,0 +1,97 @@
+type Project {
+  id: Int!
+  title: String
+  desc: String
+  start: String
+  end: String
+  inviteCode: String
+  createdAt: String
+  updatedAt: String
+  projectMembers: [ProjectMember]
+  belongs: [Belong]
+  sections: [Section]
+  goals: [Goal]
+}
+
+type ProjectMember {
+  id: Int!
+  userId: Int
+  projectId: Int
+  authority: String
+  projectRole: String
+  createdAt: String
+  updatedAt: String
+}
+
+type Belong {
+  id: Int!
+  projectId: Int
+  taskId: Int
+  createdAt: String
+  updatedAt: String
+}
+
+type Goal {
+  id: Int!
+  projectId: Int
+  title: String
+  percentage: Int
+  startDate: String
+  dueDate: String
+  createdAt: String
+  updatedAt: String
+}
+
+type ProjectResult {
+  statuscode: Int!
+  project: Project
+  err: String
+}
+
+type ProjectsResult {
+  statuscode: Int!
+  projects: [Project]
+  err: String
+}
+
+type Query {
+  getProjectDetail(id: Int!): ProjectResult!
+  getProjectList: ProjectsResult!
+}
+
+type Mutation {
+  createProject(input: createProjectInput!): ProjectResult!
+  updateProject(input: updateProjectInput!): Result!
+  deleteProject(id: Int!): Result!
+  inviteProject(input: inviteProjectInput!): Result!
+  updateAuthority(input: projectMemberInput!): Result!
+}
+
+input createProjectInput {
+  title: String!
+  desc: String
+  subject: String
+  start: String
+  end: String
+}
+
+input updateProjectInput {
+  id: Int!
+  title: String
+  desc: String
+  subject: String
+  start: String
+  end: String
+}
+
+input inviteProjectInput {
+  projectId: Int!
+  email: String
+}
+
+input projectMemberInput {
+  projectId: Int!
+  email: String
+  authority: String
+  projectRole: String
+}

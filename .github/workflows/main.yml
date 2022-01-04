@@ -1,11 +1,11 @@
 name: CI & CD
 
 # Run this workflow every time a new tag is created
-on: 
+on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 jobs:
   build:
     # Name the Job
@@ -15,42 +15,51 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-northeast-2
-          
+
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
-      
+
       - name: Set Tag Number
         id: tag-number
         run: echo ::set-output name=tag::latest
-        
+
       - name: Check Tag Release
         env:
           RELEASE_VERSION: ${{ secrets.ECR_REGISTRY }}
         run: |
           echo $RELEASE_VERSION
           echo ${{ steps.vars.outputs.tag }}
-        
+
       - name: Build, tag, and push image to Amazon ECR
         env:
           ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
           IMAGE_TAG: ${{ steps.tag-number.outputs.tag }}
+          DEV_DB_USER: ${{ secrets.DEV_DB_USER }}
+          PRODUCT_DB_USER: ${{ secrets.PRODUCT_DB_USER }}
+          DEV_DB_PW: ${{ secrets.DEV_DB_PW }}
+          PRODUCT_DB_PW: ${{ secrets.PRODUCT_DB_PW }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+          PORT: ${{ secrets.PORT }}
+          SALT: ${{ secrets.SALT }}
+          JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
         run: |
-          docker build -t demo .
-          docker tag demo:latest $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker build -t asana .
+          docker tag asana:latest $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
   deploy:
     needs: build
     name: deploy to AWS EC2
-    runs-on: [ self-hosted ]
+    runs-on: [self-hosted]
     steps:
       - name: Login to ecr
         uses: docker/login-action@v1.12.0
@@ -60,5 +69,5 @@ jobs:
           password: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       - name: Docker run
         run: |
-          docker stop demo && docker rm demo && docker rmi ${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:latest
-          docker run -d -p 80:4000 --name demo ${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:latest
+          docker stop asana && docker rm asana && docker rmi ${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:latest
+          docker run -d -p 80:4000 --name asana ${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:latest

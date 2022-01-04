@@ -6,6 +6,7 @@ import { ApolloServer } from 'apollo-server-express';
 import { getUser } from './services/users/utils';
 import * as http from 'http';
 import * as morgan from 'morgan';
+import 'dotenv/config';
 
 interface e extends GraphQLFormattedError {
   readonly statuscode: number;
@@ -18,6 +19,7 @@ const formatError = (err: GraphQLError): e => {
   console.error('Code:', err.extensions.code);
   console.error('Original Error', err.originalError);
   let statuscode = 500;
+  console.error(err);
   //에러 커스텀 어떻게 하실지 몰라서 일단 다 써놨습니다..
   switch (err.extensions.code) {
     case 'GRAPHQL_PARSE_FAILED':
@@ -78,9 +80,13 @@ async function startApolloServer(
   await server.start();
 
   server.applyMiddleware({ app });
-  await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
+  await new Promise((resolve) =>
+    httpServer.listen({ port: process.env.PORT }, resolve),
+  );
 
-  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
+  console.log(
+    `🚀 Server ready at http://localhost:${process.env.PORT}${server.graphqlPath}`,
+  );
 }
 
 export default startApolloServer;

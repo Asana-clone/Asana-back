@@ -6,34 +6,25 @@ import {
   ManyToOne,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToMany,
 } from 'typeorm';
 import { Project } from './Project';
+import { User } from './User';
+import { Authority } from '../constants';
 
-@Entity('goals')
-export class Goal extends BaseEntity {
+@Entity('projectMembers')
+export class ProjectMember extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column({
     nullable: false,
   })
-  name: string;
+  authority: Authority;
 
   @Column({
     nullable: true,
   })
-  startDate: string;
-
-  @Column({
-    nullable: true,
-  })
-  dueDate: string;
-
-  @Column({
-    nullable: false,
-  })
-  percentage: number;
+  projectRole: string;
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
@@ -41,9 +32,9 @@ export class Goal extends BaseEntity {
   @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;
 
-  @ManyToOne((type) => Project, (project) => project.goals, {
-    nullable: false,
-    onDelete: 'CASCADE',
-  })
+  @ManyToOne((type) => Project, (project) => project.projectMembers)
   project: number | Project;
+
+  @ManyToOne((type) => User, (user) => user.projectMembers)
+  user: number | User;
 }

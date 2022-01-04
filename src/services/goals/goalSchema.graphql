@@ -1,0 +1,39 @@
+type Goal {
+  id: Int
+  name: String
+  startDate: String
+  dueDate: String
+  percentage: Int
+  createdAt: String
+  updatedAt: String
+  project: Int
+}
+
+type GoalResult {
+  statuscode: Int!
+  goal: Goal
+  err: String
+}
+
+type Mutation {
+  createGoal(input: createGoalInput!): GoalResult!
+  updateGoal(input: updateGoalInput!): Result!
+  deleteGoal(id: Int!): Result!
+}
+
+input createGoalInput {
+  name: String!
+  projectId: Int
+  startDate: String
+  dueDate: String
+  percentage: Int
+}
+
+input updateGoalInput {
+  id: Int!
+  projectId: Int
+  name: String
+  startDate: String
+  dueDate: String
+  percentage: Int
+}

@@ -1,11 +1,27 @@
 import { getRepository, getConnection } from 'typeorm';
-import { idInput, createProjectInput, updateProjectInput } from '../interface';
+import {
+  idInput,
+  projectInput,
+  inviteProjectInput,
+  projectMemberInput,
+  ctx,
+} from '../interface';
 import { Project } from './../../entity/Project';
+import { ProjectMember } from './../../entity/ProjectMember';
+import { User } from './../../entity/User';
+import { Authority } from '../../constant';
 
 const projectResolvers = {
   Query: {
-    getProjectDetail: async (_: any, { id }: idInput) => {
+    getProjectDetail: async (
+      _: any,
+      { id }: idInput,
+      { loggedInUser }: ctx,
+    ) => {
       try {
+        if (!loggedInUser) {
+          throw new Error('로그인되어있지 않습니다.');
+        }
         const project = await getRepository(Project)
           .createQueryBuilder()
           .leftJoinAndSelect('Project.projectMembers', 'projectMember')
@@ -25,8 +41,11 @@ const projectResolvers = {
         };
       }
     },
-    getProjectList: async () => {
+    getProjectList: async (_: any, __: any, { loggedInUser }: ctx) => {
       try {
+        if (!loggedInUser) {
+          throw new Error('로그인되어있지 않습니다.');
+        }
         const projects = await getRepository(Project)
           .createQueryBuilder()
           .leftJoinAndSelect('Project.projectMembers', 'projectMember')
@@ -49,14 +68,23 @@ const projectResolvers = {
     },
   },
   Mutation: {
-    createProject: async (_: any, { input }: createProjectInput) => {
-      console.log(input);
+    createProject: async (
+      _: any,
+      { input }: projectInput,
+      { loggedInUser }: ctx,
+    ) => {
+      if (!loggedInUser) {
+        throw new Error('로그인되어있지 않습니다.');
+      }
       try {
-        const { title, desc } = input;
+        const { title, subject, start, end, desc } = input;
         //TODO inviteCode 생성
         const inviteCode = '1';
         const project = await getRepository(Project).save({
           title,
+          subject,
+          start,
+          end,
           desc,
           inviteCode,
         });
@@ -72,15 +100,28 @@ const projectResolvers = {
         };
       }
     },
-    updateProject: async (_: any, { input }: updateProjectInput) => {
+    updateProject: async (
+      _: any,
+      { input }: projectInput,
+      { loggedInUser }: ctx,
+    ) => {
       try {
-        const { id, title, desc } = input;
+        if (!loggedInUser) {
+          throw new Error('로그인되어있지 않습니다.');
+        }
+        const { id, title, subject, start, end, desc } = input;
         await getConnection()
           .createQueryBuilder()
-          .update(Project, { title, desc })
+          .update(Project, {
+            id,
+            title,
+            subject,
+            start,
+            end,
+            desc,
+          })
           .where('id = :id', { id })
           .execute();
-
         return {
           statuscode: 200,
         };
@@ -91,13 +132,85 @@ const projectResolvers = {
         };
       }
     },
-    deleteProject: async (_: any, { id }: idInput) => {
+    deleteProject: async (_: any, { id }: idInput, { loggedInUser }: ctx) => {
       try {
+        if (!loggedInUser) {
+          throw new Error('로그인되어있지 않습니다.');
+        }
         await getConnection()
           .createQueryBuilder()
           .delete()
           .from(Project)
           .where('id=:id', { id })
+          .execute();
+        return {
+          statuscode: 200,
+        };
+      } catch (err) {
+        return {
+          statuscode: 400,
+          err,
+        };
+      }
+    },
+    inviteProject: async (
+      _: any,
+      { input }: inviteProjectInput,
+      { loggedInUser }: ctx,
+    ) => {
+      try {
+        if (!loggedInUser) {
+          throw new Error('로그인되어있지 않습니다.');
+        }
+        const { email, projectId } = input;
+        const userId: number = await getRepository(User)
+          .findOne({
+            where: {
+              email,
+            },
+          })
+          .then((user) => user.id);
+
+        await getRepository(ProjectMember).save({
+          user: userId,
+          project: projectId,
+          authority: Authority.canComment,
+        });
+        return {
+          statuscode: 200,
+        };
+      } catch (err) {
+        return {
+          statuscode: 400,
+          err,
+        };
+      }
+    },
+    updateAuthority: async (
+      _: any,
+      { input }: projectMemberInput,
+      { loggedInUser }: ctx,
+    ) => {
+      try {
+        if (!loggedInUser) {
+          throw new Error('로그인되어있지 않습니다.');
+        }
+        const { email, projectId, authority } = input;
+        const userId: number = await getRepository(User)
+          .findOne({
+            where: {
+              email,
+            },
+          })
+          .then((user) => user.id);
+        await getConnection()
+          .createQueryBuilder()
+          .update(ProjectMember, {
+            user: userId,
+            project: projectId,
+            authority,
+          })
+          .where('projectMembers.userId = :userId', { userId })
           .execute();
         return {
           statuscode: 200,

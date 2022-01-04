@@ -31,14 +31,6 @@ type Belong {
   updatedAt: String
 }
 
-type Section {
-  id: Int!
-  projectId: Int
-  title: String
-  createdAt: String
-  updatedAt: String
-}
-
 type Goal {
   id: Int!
   projectId: Int
@@ -71,15 +63,35 @@ type Mutation {
   createProject(input: createProjectInput!): ProjectResult!
   updateProject(input: updateProjectInput!): Result!
   deleteProject(id: Int!): Result!
+  inviteProject(input: inviteProjectInput!): Result!
+  updateAuthority(input: projectMemberInput!): Result!
 }
 
 input createProjectInput {
   title: String!
   desc: String
+  subject: String
+  start: String
+  end: String
 }
 
 input updateProjectInput {
   id: Int!
   title: String
   desc: String
+  subject: String
+  start: String
+  end: String
+}
+
+input inviteProjectInput {
+  projectId: Int!
+  email: String
+}
+
+input projectMemberInput {
+  projectId: Int!
+  email: String
+  authority: String
+  projectRole: String
 }

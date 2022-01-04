@@ -1,7 +1,16 @@
+type Section {
+  id: Int!
+  projectId: Int
+  title: String
+  createdAt: String
+  updatedAt: String
+  tasks: [Task]
+}
+
 type Mutation {
   createSection(input: SectionInput!): Result!
   updateSection(input: SectionInput!): Result!
-  deleteSection(id:Int!): Result!
+  deleteSection(id: Int!): Result!
 }
 
 input SectionInput {

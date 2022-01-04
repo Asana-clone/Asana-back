@@ -33,7 +33,7 @@ export class Goal extends BaseEntity {
   @Column({
     nullable: false,
   })
-  percentage: string;
+  percentage: number;
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;

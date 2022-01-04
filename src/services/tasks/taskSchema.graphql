@@ -11,13 +11,6 @@ type Task {
   tags: [Tag]
 }
 
-type Comment {
-  id: Int!
-  comment: String
-  name: String
-  createAt: String
-}
-
 type Tag {
   id: Int!
   name: String

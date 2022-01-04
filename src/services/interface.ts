@@ -1,4 +1,5 @@
 import { User } from '../entity/User';
+import { Authority } from '../constant';
 
 export interface signInput {
   email: string;
@@ -7,6 +8,7 @@ export interface signInput {
 export interface ctx {
   loggedInUser: User;
 }
+
 export interface userInput {
   input: {
     name: string;
@@ -22,18 +24,30 @@ export interface idInput {
   id: number;
 }
 
-export interface createProjectInput {
+export interface projectInput {
   input: {
-    title: string;
-    desc: string;
+    id?: number;
+    title?: string;
+    desc?: string;
+    subject?: string;
+    start?: string;
+    end?: string;
   };
 }
 
-export interface updateProjectInput {
+export interface inviteProjectInput {
   input: {
-    id: number;
-    title: string;
-    desc: string;
+    projectId: number;
+    email?: string;
+  };
+}
+
+export interface projectMemberInput {
+  input: {
+    projectId: number;
+    email?: string;
+    authority?: Authority;
+    projectRole?: string;
   };
 }
 
@@ -67,5 +81,25 @@ export interface updateCommentInput {
   input: {
     id: number;
     contents: string;
+  };
+}
+
+export interface createGoalInput {
+  input: {
+    name: string;
+    projectId?: number;
+    startDate?: string;
+    dueDate?: string;
+    percentage?: number;
+  };
+}
+export interface updateGoalInput {
+  input: {
+    id: number;
+    projectId?: number;
+    name?: string;
+    startDate?: string;
+    dueDate?: string;
+    percentage?: number;
   };
 }

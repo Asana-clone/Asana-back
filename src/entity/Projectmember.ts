@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 import { Project } from './Project';
 import { User } from './User';
+import { Authority } from '../constant';
 
 @Entity('projectMembers')
 export class ProjectMember extends BaseEntity {
@@ -18,7 +19,7 @@ export class ProjectMember extends BaseEntity {
   @Column({
     nullable: false,
   })
-  authority: string;
+  authority: Authority;
 
   @Column({
     nullable: true,

@@ -2,7 +2,10 @@ import 'dotenv/config';
 
 export = {
   type: 'mysql',
-  host: 'localhost',
+  host:
+    process.env.NODE_ENV === 'development'
+      ? process.env.DEV_END_POINT
+      : process.env.PRODUCT_END_POINT,
   port: process.env.DB_PORT,
   username:
     process.env.NODE_ENV === 'development'

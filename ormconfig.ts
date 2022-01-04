@@ -14,7 +14,7 @@ export = {
       : process.env.PRODUCT_DB_PW,
   database: process.env.DB_NAME,
   entities: ['src/entity/*.ts', 'dist/entity/*.js'],
-  synchronize: false,
-  dropSchema: false,
+  synchronize: true,
+  dropSchema: true,
   logging: true,
 };

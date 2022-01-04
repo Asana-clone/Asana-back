@@ -36,8 +36,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsc-watch --onSuccess \"ts-node dist/server.js\"",
-    "start": "tsc-watch --onSuccess \"NODE_ENV=production ts-node dist/server.js\""
+    "dev": "tsc-watch --onSuccess \"node dist/server.js\"",
+    "start": "tsc-watch --onSuccess \"NODE_ENV=production node dist/server.js\""
   },
   "keywords": [],
   "author": "",

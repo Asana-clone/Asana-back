@@ -16,13 +16,6 @@ type Task {
   tagRelations: [TagRelation]
 }
 
-type Comment {
-  id: Int!
-  contents: String
-  user: User
-  createdAt: String
-}
-
 type TagRelation{
   id: Int!
   tag: Tag

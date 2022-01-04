@@ -28,11 +28,10 @@ const sectionResolvers = {
         return {
           statuscode: 200,
         };
-      } catch (err) {
-        console.error(err);
+      } catch (message) {
         return {
           statuscode: 500,
-          err,
+          message,
         };
       }
     },
@@ -63,11 +62,11 @@ const sectionResolvers = {
         } else {
           throw new Error('작성자가 아닙니다');
         }
-      } catch (err) {
-        console.error(err);
+      } catch (message) {
+        console.error(message);
         return {
           statuscode: 500,
-          err,
+          message,
         };
       }
     },
@@ -96,11 +95,10 @@ const sectionResolvers = {
         } else {
           throw new Error('작성자가 아닙니다');
         }
-      } catch (err) {
-        console.error(err);
+      } catch (message) {
         return {
           statuscode: 500,
-          err,
+          message,
         };
       }
     },

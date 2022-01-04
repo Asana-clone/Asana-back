@@ -26,10 +26,10 @@ const goalResolvers = {
           statuscode: 200,
           goal,
         };
-      } catch (err) {
+      } catch (message) {
         return {
           statuscode: 500,
-          err,
+          message,
         };
       }
     },
@@ -57,10 +57,10 @@ const goalResolvers = {
         return {
           statuscode: 200,
         };
-      } catch (err) {
+      } catch (message) {
         return {
           statuscode: 500,
-          err,
+          message,
         };
       }
     },
@@ -78,10 +78,10 @@ const goalResolvers = {
         return {
           statuscode: 200,
         };
-      } catch (err) {
+      } catch (message) {
         return {
           statuscode: 500,
-          err,
+          message,
         };
       }
     },

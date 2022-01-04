@@ -84,6 +84,13 @@ async function startApolloServer(
     httpServer.listen({ port: process.env.PORT }, resolve),
   );
 
+  console.log(process.env.NODE_ENV);
+  console.log(process.env.PORT);
+  console.log(process.env.PRODUCT_DB_USER);
+  console.log(process.env.PRODUCT_DB_PW);
+  console.log(process.env.PRODUCT_END_POINT);
+  console.log(process.env.DB_NAME);
+
   console.log(
     `🚀 Server ready at http://localhost:${process.env.PORT}${server.graphqlPath}`,
   );

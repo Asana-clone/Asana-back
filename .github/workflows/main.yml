@@ -43,18 +43,6 @@ jobs:
           ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
           IMAGE_TAG: ${{ steps.tag-number.outputs.tag }}
-          NODE_ENV: ${{ secrets.NODE_ENV }}
-          DEV_DB_USER: ${{ secrets.DEV_DB_USER }}
-          PRODUCT_DB_USER: ${{ secrets.PRODUCT_DB_USER }}
-          DEV_DB_PW: ${{ secrets.DEV_DB_PW }}
-          PRODUCT_DB_PW: ${{ secrets.PRODUCT_DB_PW }}
-          DB_NAME: ${{ secrets.DB_NAME }}
-          DEV_END_POINT: ${{ secrets.DEV_END_POINT }}
-          PRODUCT_END_POINT: ${{ secrets.PRODUCT_END_POINT }}
-          DB_PORT: ${{ secrets.DB_PORT }}
-          PORT: ${{ secrets.PORT }}
-          SALT: ${{ secrets.SALT }}
-          JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
         run: |
           docker build -t asana-clone .
           docker tag asana-clone:latest $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
@@ -73,4 +61,16 @@ jobs:
       - name: Docker run
         run: |
           docker stop asana-clone && docker rm asana-clone && docker rmi ${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:latest
-          docker run -d -p 80:4000 --name asana-clone ${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:latest
+          docker run -d -e NODE_ENV=${{ secrets.NODE_ENV }}
+          -e DEV_DB_USER=${{ secrets.DEV_DB_USER }}
+          -e PRODUCT_DB_USER=${{ secrets.PRODUCT_DB_USER }}
+          -e DEV_DB_PW=${{ secrets.DEV_DB_PW }}
+          -e PRODUCT_DB_PW=${{ secrets.PRODUCT_DB_PW }}
+          -e DB_NAME=${{ secrets.DB_NAME }}
+          -e DEV_END_POINT=${{ secrets.DEV_END_POINT }}
+          -e PRODUCT_END_POINT=${{ secrets.PRODUCT_END_POINT }}
+          -e DB_PORT=${{ secrets.DB_PORT }}
+          -e PORT=${{ secrets.PORT }}
+          -e SALT=${{ secrets.SALT }}
+          -e JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }} 
+          -p 80:4000 --name asana-clone ${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:latest

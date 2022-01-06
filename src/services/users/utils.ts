@@ -26,3 +26,16 @@ export const getUser = async (token: string) => {
     return undefined;
   }
 };
+
+export const emailCheck = (email: string) => {
+  try {
+    const E = email.match(/\@/g).length;
+    if (E === 1) {
+      return true;
+    }
+    return false;
+  } catch (err) {
+    console.error(err);
+    return false;
+  }
+};

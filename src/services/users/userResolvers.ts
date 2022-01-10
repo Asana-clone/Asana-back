@@ -4,6 +4,7 @@ import { getRepository, getConnection } from 'typeorm';
 import { User } from '../../entity/User';
 import 'dotenv/config';
 import { ctx, signInput, userInput } from '../interface';
+import { emailCheck } from './utils';
 
 const salt = Number(process.env.SALT);
 
@@ -75,6 +76,9 @@ const userResolvers = {
         const provider = 'local';
         const { name, role, department, email, about, password } = input;
         //db생성문을 넣어야 합니다.
+        if (!emailCheck) {
+          return { statuscode: 400, err: '이메일 형식이 아닙니다' };
+        }
         const hashedPw = await bcrypt.hash(password, salt);
         const userExist = await getRepository(User).findOne({
           where: { email },

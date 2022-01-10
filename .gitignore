@@ -1,5 +1,6 @@
 backup/
 ormconfig.json
+.idea
 
 # Logs
 logs
